@@ -3,6 +3,8 @@
 
 writable/session/
 
+writable/debugbar/
+
 writable/logs/
 
 .vscode/
