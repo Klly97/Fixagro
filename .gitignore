@@ -1,0 +1,8 @@
+
+*.env
+
+writable/session/
+
+writable/logs/
+
+.vscode/
