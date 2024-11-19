@@ -83,53 +83,61 @@
                             </div>
                             <div class="modal-body container mt-3">
                                 <!-- Formulario de Entrada -->
-                                <div class="row mb-4">
-                                    <div class="col-md-4">
-                                        <div class="input-group">
-                                            <span class="input-group-text">Tipo de máquina:</span>
-                                            <input type="text" class="form-control text-capitalize" placeholder="Especificar tipo">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="input-group">
-                                            <span class="input-group-text">Modelo:</span>
-                                            <input type="text" class="form-control text-capitalize" placeholder="Especificar modelo">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="input-group">
-                                            <span class="input-group-text">Marca:</span>
-                                            <input type="text" class="form-control text-capitalize" placeholder="Especificar marca">
-                                        </div>
-                                    </div>
-                                </div>
+                                <form enctype="multipart/form-data" method="post" id="registrar_publicacion">
 
-                                <!-- Área de carga de archivos -->
-                                <div class="upload-area mt-3 flex-column d-flex justify-content-center" style="height: 100%; width:100%">
-                          
-                                <div class="d-flex justify-content-center" style="height: 100%; width:100%">
-                                        <div class="d-flex justify-content-center">
-                                        <i class="bi bi-images"></i>
+                                    <div class="row mb-4">
+                                        <div class="col-md-4">
+                                            <div class="input-group">
+                                                <span class="input-group-text">Tipo de máquina:</span>
+                                                <input type="text" class="form-control text-capitalize" placeholder="Especificar tipo">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="input-group">
+                                                <span class="input-group-text">Modelo:</span>
+                                                <input type="text" class="form-control text-capitalize" placeholder="Especificar modelo">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="input-group">
+                                                <span class="input-group-text">Marca:</span>
+                                                <input type="text" class="form-control text-capitalize" placeholder="Especificar marca">
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="d-flex justify-content-center" style="height: 100%; width:100%">
-                                        <div class="d-flex justify-content-center">
-                                            <input type="file" class="form-control form-control-sm mb-0 me-2 " id="customFile" style="max-width: 450px; font-size: 0.8rem;">
+
+                                    <!-- Área de carga de archivos -->
+                                    <div class="upload-area mt-3 flex-column d-flex justify-content-center" style="height: 100%; width:100%">
+
+                                        <div class="d-flex justify-content-center" style="height: 100%; width:100%">
+                                            <div class="d-flex justify-content-center">
+                                                <i class="bi bi-images"></i>
+                                            </div>
+                                        </div>
+                                        <div class="d-flex justify-content-center" style="height: 100%; width:100%">
+                                            <div class="d-flex justify-content-center">
+                                                <input type="file" class="form-control form-control-sm mb-0 me-2 " id="customFile" style="max-width: 450px; font-size: 0.8rem;">
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Guardar</button>
-                                </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                        <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Guardar</button>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>
-
-
                 </div>
             </div>
         </div>
 </section>
 
 <?php echo $this->endSection(); ?>
+
+<?php echo $this->section('scripts');?>
+
+
+
+<?php echo $this->endSection();?>
+
