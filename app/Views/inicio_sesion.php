@@ -1,9 +1,5 @@
 <?php
-$id_usuario = session('id');
-if (isset($id_usuario)) {
-    header("Location: " . base_url('inicio'));
-    die();
-}
+header("Location: " . base_url('inicio'));
 ?>
 <!DOCTYPE html>
 <html lang="es">

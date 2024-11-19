@@ -21,4 +21,4 @@ $routes->get('/ventanafin', 'Inicio::ventanaFin');
 $routes->get('/registro/(:alpha)', 'Inicio::vRegistro/$1');
 $routes->post('/validarCredencialesLogin', 'Inicio::validarDatosIngreso');
 $routes->post('/crear_persona', 'Persona::crear');
-$routes->get('/agregarMaquinas', 'Perfiles::RegistroMaquinas');
+

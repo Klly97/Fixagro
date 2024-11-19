@@ -48,6 +48,8 @@ CREATE TABLE IF NOT EXISTS maquinas (
   marca VARCHAR(50) NOT NULL,
   img TEXT(10000) NOT NULL,
   id_usuario INT NOT NULL,
+  fecha_creacion DATE NOT NULL,
+  estado ENUM("ACTIVO", "INACTIVO") NOT NULL,
   PRIMARY KEY (id_maquina),
 FOREIGN KEY (id_usuario) REFERENCES persona (id)
 )ENGINE = InnoDB;

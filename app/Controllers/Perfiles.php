@@ -8,10 +8,6 @@ use CodeIgniter\Session\Session;
 class Perfiles extends BaseController
 {
 
-    public function RegistroMaquinas()
-    {
-        return view('agregarMaquinas');
-    }
 
 
 

@@ -15,9 +15,19 @@ class Inicio extends BaseController
 
     public function inicio()
     {
-        return view('perfilCliente');
-    }
+        $tipo_persona=session('tipo_persona');
 
+        if (isset($tipo_persona)) {
+            if ($tipo_persona == "CLIENTE") {
+                return view('inicio_cliente');
+            } elseif ($tipo_persona == "TECNICO") {
+                return view('inicio_tecnico');
+            }
+        }else{
+            return redirect('login');
+        }
+        
+    }
   
     // Aca validamos los datos para el inicio de sesion
     public function validarDatosIngreso()
@@ -77,8 +87,10 @@ class Inicio extends BaseController
 
     public function cerrarSesion()
     {
-        $this>session()->destroy();
+
+        session()->destroy();
+       
         echo view('inicio_sesion');
-        die();
+
     }
 }

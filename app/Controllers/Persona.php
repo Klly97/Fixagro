@@ -16,7 +16,7 @@ class Persona extends BaseController
         $departamento = $this->request->getPostGet('departamento');
         $correo = $this->request->getPostGet('correo');
         $contrasena =  md5($this->request->getPostGet('contrasena'));
-
+        $tipo_persona = $this->request->getPostGet('tipo_persona');
         $usuariosModel = new PersonaModel();
 
         $registros = $usuariosModel->save([
@@ -30,7 +30,7 @@ class Persona extends BaseController
             'nombre_usuario' => $nombre,
             'contrasena' => $contrasena, 
             'estado' => "ACTIVO",
-            'tipo_persona' =>  "CLIENTE",
+            'tipo_persona' => $tipo_persona,
             'avatar' => 'xaSASasasas'
         ]);
 

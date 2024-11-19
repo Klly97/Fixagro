@@ -16,18 +16,18 @@
                     <div class="row mb-3">
                         <div class="col">
                             <label for="nombre" class="form-label text-light">Nombre</label>
-                            <input type="text" class="form-control" id="nombre" placeholder="Nombre" name="nombre">
+                            <input type="text" class="form-control text-capitalize" id="nombre" placeholder="Nombre" name="nombre">
                         </div>
                         <div class="col">
                             <label for="apellido" class="form-label text-light">Apellido</label>
-                            <input type="text" class="form-control" id="apellido" placeholder="Apellido" name="apellido">
+                            <input type="text" class="form-control text-capitalize" id="apellido" placeholder="Apellido" name="apellido">
                         </div>
                     </div>
 
                     <div class="row mb-3">
                         <div class="col">
                             <label for="telefono" class="form-label text-light">Teléfono</label>
-                            <input type="text" class="form-control" id="telefono" placeholder="Teléfono" name="telefono">
+                            <input type="text" class="form-control text-capitalize" id="telefono" placeholder="Teléfono" name="telefono">
                         </div>
                         <div class="col">
                             <label for="correo" class="form-label text-light">Correo Electrónico</label>
@@ -38,28 +38,28 @@
                     <div class="row mb-3">
                         <div class="col">
                             <label for="departamento" class="form-label text-light">Departamento</label>
-                            <input type="text" class="form-control" id="departamento" placeholder="Departamento" name="departamento">
+                            <input type="text" class="form-control text-capitalize" id="departamento" placeholder="Departamento" name="departamento">
                         </div>
                         <div class="col">
                             <label for="municipio" class="form-label text-light">Municipio</label>
-                            <input type="text" class="form-control" id="municipio" placeholder="Municipio" name="municipio">
+                            <input type="text" class="form-control text-capitalize" id="municipio" placeholder="Municipio" name="municipio">
                         </div>
                     </div>
                     <?php if ($opcion == "cliente") { ?>
                         <div class="row mb-3">
                             <div class="col-6">
                                 <label for="direccion" class="form-label text-light">Dirección</label>
-                                <input type="text" class="form-control" id="direccion" placeholder="Dirección" name="direccion">
+                                <input type="text" class="form-control text-capitalize" id="direccion" placeholder="Dirección" name="direccion">
                             </div>
                             <div class="col">
                                 <label for="contrasena" class="form-label text-light">Contraseña</label>
-                                <input type="password" class="form-control" id="contrasena" placeholder="Contraseña" name="contrasena">
+                                <input type="password" class="form-control text-capitalize" id="contrasena" placeholder="Contraseña" name="contrasena">
                             </div>
                         </div>
                         <div class="row mb-3">
                             <div class="col-6">
                                 <label for="confirmar-contrasena" class="form-label text-light">Confirmar Contraseña</label>
-                                <input type="password" class="form-control" id="confirmar-contrasena-confirma" placeholder="Confirmar Contraseña">
+                                <input type="password" class="form-control text-capitalize" id="confirmar-contrasena-confirma" placeholder="Confirmar Contraseña">
                             </div>
                         </div>
                     <?php }; ?>
@@ -74,7 +74,7 @@
                             </div>
                             <div class="col">
                                 <label for="confirmar-contrasena" class="form-label text-light">Dirección del Taller</label>
-                                <input type="password" class="form-control" id="direccion_taller" placeholder="Ingresa dirección" name="direccion">
+                                <input type="text" class="form-control text-capitalize" id="direccion_taller" placeholder="Ingresa dirección" name="direccion">
                             </div>
                         </div>
                         <div class="row mb-3">
@@ -91,6 +91,7 @@
                     <div class="row mb-3 d-flex justify-content-center">
                         <button type="submit" class="btn btn-success text-light btn-lg m-3 " style="width: 45%;">Registrarse</button>
                     </div>
+                    <input type="hidden" class="form-control" id="tipo_persona" value="<?php echo $opcion ;?>" name="tipo_persona">
                 </form>
                 <div class="text-center mt-5">
                     <a class="text-light h5" href="#">¿Ya tienes una cuenta?</a> | <a class="text-light h5" href="<?php echo base_url('/'); ?>">Inicia Sesión</a>
@@ -130,7 +131,7 @@
                     Swal.fire({
                         icon: 'success',
                         title: 'Exitoso!',
-                        text: 'Los datos han sido registrados. RESPUESTA AJAX =>' + data,
+                        text: 'Los datos han sido registrados. RESPUESTA SERVIDOR =>' + data,
                         type: "success"
                     }).then(okay => {
                         if (okay) {
