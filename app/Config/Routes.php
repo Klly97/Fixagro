@@ -22,4 +22,5 @@ $routes->post('/crear_persona', 'Persona::crear');
 $routes->get('/publicacion_historial_maquina', 'perfiles::publicacion_historial_maquina');
 $routes->get('/ventanafin', 'perfiles::ventanaFin');
 $routes->get('/historial', 'perfiles::historial');
+$routes->get('/servicio_mantenimiento', 'perfiles::servicio_mantenimiento');
 
