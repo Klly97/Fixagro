@@ -67,13 +67,7 @@ class Inicio extends BaseController
     {
         return view('selec_registro');
     }
-    public function registroSoli(){
-        return view('registroSoli');
-    }
-    public function ventanaFin(){
-        return view('ventanaFin');
-    }
-
+    
     public function vRegistro($opcion)
     {
         $data = ['opcion' => $opcion];

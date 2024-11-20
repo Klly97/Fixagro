@@ -16,9 +16,10 @@ $routes->get('/login', 'Inicio::index');
 $routes->get('/inicio', 'Inicio::inicio');
 $routes->get('/cerrar_sesion', 'Inicio::cerrarSesion');
 $routes->get('/selec_registro', 'Inicio::selec_registro');
-$routes->get('/registrosoli', 'Inicio::registroSoli');
-$routes->get('/ventanafin', 'Inicio::ventanaFin');
 $routes->get('/registro/(:alpha)', 'Inicio::vRegistro/$1');
 $routes->post('/validarCredencialesLogin', 'Inicio::validarDatosIngreso');
 $routes->post('/crear_persona', 'Persona::crear');
+$routes->get('/publicacion_historial_maquina', 'perfiles::publicacion_historial_maquina');
+$routes->get('/ventanafin', 'perfiles::ventanaFin');
+$routes->get('/historial', 'perfiles::historial');
 
