@@ -3,7 +3,8 @@
 namespace App\Controllers;
 
 use App\Models\PersonaModel;
-use CodeIgniter\Session\Session; 
+use CodeIgniter\Session\Session;
+use App\Controllers\Maquina;
 
 class Inicio extends BaseController
 {
@@ -19,7 +20,10 @@ class Inicio extends BaseController
 
         if (isset($tipo_persona)) {
             if ($tipo_persona == "CLIENTE") {
-                return view('inicio_cliente');
+
+                $maquina = new Maquina();
+                $datos['maquinas'] = $maquina->getMaquinasCliente(session('id'));
+                return view('inicio_cliente',$datos);
             } elseif ($tipo_persona == "TECNICO") {
                 return view('inicio_tecnico');
             }

@@ -42,7 +42,7 @@ CREATE TABLE IF NOT EXISTS tecnico (
 -- Table maquinas
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS maquinas (
-  id_maquina INT NOT NULL,
+  id_maquina INT NOT NULL AUTO_INCREMENT,
   tipo_maquina VARCHAR(50) NOT NULL,
   modelo VARCHAR(45) NOT NULL,
   marca VARCHAR(50) NOT NULL,

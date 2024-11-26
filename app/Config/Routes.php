@@ -24,3 +24,6 @@ $routes->get('/ventanafin', 'perfiles::ventanaFin');
 $routes->get('/historial', 'perfiles::historial');
 $routes->get('/servicio_mantenimiento', 'perfiles::servicio_mantenimiento');
 
+//Maquinas
+$routes->post('/crear_maquina', 'Maquina::crear');
+ 
