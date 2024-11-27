@@ -50,7 +50,7 @@
                         <strong class="ms-2"><?php echo session('nombre') ?></strong>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
-                        <li><a href="<?php echo base_url('informancion_usuario') ?>" class="dropdown-item">Perfil</a></li>
+                        <li><a href="<?= base_url('/perfil') ?>" class="dropdown-item">Perfil</a></li>
                         <li><a href="<?php echo base_url('cerrar_sesion'); ?>" class="dropdown-item">Cerrar sesión</a></li>
                     </ul>
                 </li>

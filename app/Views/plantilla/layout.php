@@ -1,10 +1,3 @@
-<?php
-$id_usuario = session('id');
-if (!isset($id_usuario)) {
-    header("Location: " . base_url('login'));
-    die();
-}
-?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -15,8 +8,6 @@ if (!isset($id_usuario)) {
     <meta content="" name="keywords">
     <meta content="" name="description">
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -36,51 +27,36 @@ if (!isset($id_usuario)) {
 
     <!-- Template Stylesheet -->
     <link href="<?php echo base_url('/public/css/style.css'); ?>" rel="stylesheet">
+
+    <style>
+        body {
+            background-color: #f4f4f4;
+        }
+
+        .card {
+            background-color: #e8e8e8;
+            border: none;
+            border-radius: 10px;
+        }
+
+        .btn-green {
+            background-color: #8cc63f;
+            color: white;
+        }
+
+        .btn-green:hover {
+            background-color: #77ab34;
+        }
+
+        .section-title {
+            color: #8cc63f;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+    </style>
 </head>
 
-<style>
-    body {
-        background-color: #e3e3e3;
-    }
-
-    .input-group-text {
-        background-color: #e3e3e3;
-        border: none;
-    }
-
-    .upload-area {
-        background-color: #4A90E2;
-        border: 2px dashed #FFFFFF;
-        padding: 50px;
-        text-align: center;
-        color: #FFFFFF;
-    }
-
-    .upload-area i {
-        font-size: 3rem;
-    }
-
-    .btn-save {
-        background-color: #A2C619;
-        color: white;
-        border: none;
-        padding: 10px 20px;
-        border-radius: 15px;
-        width: 15%;
-    }
-
-    .btn-save:hover {
-        background-color: #8FB517;
-    }
-
-    .btnGuardar {
-        display: flex;
-        justify-content: end;
-    }
-</style>
-
-<body class="d-flex flex-column min-vh-100">
-
+<body>
     <?php echo $this->include('plantilla/navbar'); ?>
 
     <?php echo $this->renderSection("contenido"); ?>
@@ -88,8 +64,6 @@ if (!isset($id_usuario)) {
     <?php echo $this->include('plantilla/footer'); ?>
 
     <?php echo $this->renderSection("script"); ?>
-
 </body>
-
 
 </html>

@@ -29,5 +29,3 @@ class Perfiles extends BaseController
 
 
 }
-
-?>
