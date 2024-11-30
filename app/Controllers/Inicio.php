@@ -4,7 +4,8 @@ namespace App\Controllers;
 
 use App\Models\Oferta_modelo;
 use App\Models\PersonaModel;
-use CodeIgniter\Session\Session; 
+use CodeIgniter\Session\Session;
+use App\Controllers\Maquina;
 
 class Inicio extends BaseController
 {
@@ -19,9 +20,10 @@ class Inicio extends BaseController
     
         if (isset($tipo_persona)) {
             if ($tipo_persona == "CLIENTE") {
-                $model = new Oferta_modelo();
-                $data['ofertas'] = $model->where('id_cliente', session('id'))->findAll(); // Filtrar por cliente
-                return view('inicio_cliente', $data);
+
+                $maquina = new Maquina();
+                $datos['maquinas'] = $maquina->getMaquinasCliente(session('id'));
+                return view('inicio_cliente',$datos);
             } elseif ($tipo_persona == "TECNICO") {
                 $model = new Oferta_modelo();
                 $municipio = session('municipio');

@@ -8,24 +8,67 @@ class Maquina extends BaseController
 {
     public function crear()
     {
-        $tipo_maquina =  $this->request->getPostGet('tipo_maquina');
+        $tipo_maquina =  $this->request->getPostGet('tipo');
         $modelo = $this->request->getPostGet('modelo');
         $marca = $this->request->getPostGet('marca');
-        $img = $this->request->getPostGet('img');
-        $id_usuario = session('id_usuario');
+        $id_usuario = session('id');
         $estado = "ACTIVO";
+        $imagen = $this->request->getFile('foto');
+
+
+        $extension = $imagen->getExtension();
+
+        if (in_array($extension, array('png', 'jpg', 'jpeg', 'PNG', 'JPG', 'JPEG'))) {
+
+            $maquinaModel = new MaquinaModel();
+          
+            $nombre_foto = 'foto_' . self::getUltimoId() . '.' . $extension;
+
+            $registros = $maquinaModel->save([
+                'tipo_maquina' => $tipo_maquina,
+                'modelo' => $modelo,
+                'marca' => $marca,
+                'img' => $nombre_foto,
+                'id_usuario' => $id_usuario,
+                'estado' => $estado
+            ]);
+
+            $ruta = "./public/img/maquina";
+
+            if (!file_exists($ruta)) {
+                mkdir($ruta, 0777, false);
+            }
+
+            $imagen->move('./public/img/maquina', $nombre_foto);
+
+            if ($registros) {
+               echo $mensaje = "OK#INSERT";
+            } else {
+               echo $mensaje = "ERROR#INSERT";
+            }
+        }else{
+           echo $mensaje = "NO#INSERT";
+        }
+    }
+
+    public function getMaquinasCliente($id_usuario){
         
         $maquinaModel = new MaquinaModel();
+        $consulta = $maquinaModel->where("id_usuario", $id_usuario)->findAll();
+        return $consulta;
+    }
 
-        $registros = $maquinaModel->save([
-            'tipo_maquina' => $tipo_maquina,
-            'modelo' => $modelo,
-            'marca' => $marca,
-            'img' => $img,
-            'id_usuario' => $id_usuario,
-            'estado' => $estado
-        ]);
+    private function getUltimoId(){
 
-       echo "DATOS GUARDADOS";
+        $maquinaModel = new MaquinaModel();
+
+        $sentencia = $maquinaModel->select("MAX(id_maquina) id_maquina")->find();
+
+        if ($sentencia) {
+            return  $sentencia[0]['id_maquina'] + 1;
+        }else{
+            return "1";
+        }
+          
     }
 }
