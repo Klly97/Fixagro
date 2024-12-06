@@ -42,3 +42,7 @@ $routes->get('/ofertas/eliminar/(:num)', 'Oferta_Cliente::delete/$1'); // Elimin
 // Rutas para el chat
 $routes->get('/chat', 'ChatController::index'); // Página principal del chat
 $routes->post('/chat/enviar_mensaje', 'ChatController::sendMessage'); // Enviar un mensaje en el chat
+
+//Ruta de olvidar contraseña
+$routes->get('/restablecer', 'Restablecer::index');
+$routes->post('/restablecer', 'Restablecer::restablecer');
