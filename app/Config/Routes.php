@@ -22,6 +22,11 @@ $routes->get('/registro/(:alpha)', 'Inicio::vRegistro/$1');
 $routes->post('/validarCredencialesLogin', 'Inicio::validarDatosIngreso');
 $routes->post('/crear_persona', 'Persona::crear');
 
+$routes->get('/perfil', 'Persona::editarPerfil'); 
+$routes->post('/perfil/cambiarContrasena', 'Persona::cambiarContrasena'); 
+$routes->post('/actualizar_persona', 'Persona::actualizarPerfil');
+$routes->post('/perfil/eliminarPersona', 'Persona::eliminarPersona');
+
 $routes->get('/publicacion_historial_maquina/(:num)', 'Perfiles::publicacion_historial_maquina/$1');
 $routes->get('/ventanafin', 'perfiles::ventanaFin');
 $routes->get('/historial', 'perfiles::historial');

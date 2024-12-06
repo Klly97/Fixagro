@@ -23,6 +23,9 @@ class Perfiles extends BaseController
     public function historial(){
         return view('historial');
     }
+    public function perfil(){
+        return view('perfil');
+    }
 
     public function servicio_mantenimiento(){
         return view('servicio_mantenimiento');
