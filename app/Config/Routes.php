@@ -39,3 +39,7 @@ $routes->get('/maquinas', 'maquina::index');
 $routes->get('/maquina/detalle/(:num)', 'maquina::detalle/$1');
 $routes->get('/maquina/detalle/(:num)/historial', 'maquina::historial/$1', ['as' => 'maquina_historial']);
 
+//Ruta de olvidar contraseña
+$routes->get('/restablecer', 'Restablecer::index');
+$routes->post('/restablecer', 'Restablecer::restablecer');
+
