@@ -36,7 +36,7 @@
                         <div class="row g-2">
                             <?php foreach ($maquinas as $maquina): ?>
                                 <div class="col-sm-6 col-lg-4">
-                                    <a href="<?php echo base_url('/publicacion_historial_maquina/' . $maquina['id_maquina']); ?>">
+                                    <a href="<?php echo base_url('/publicacion_maquina/' . $maquina['id_maquina']); ?>">
                                         <img src="<?php echo base_url('./public/img/maquina/') . $maquina['img'] ?>" alt="Machine 1"
                                             class="w-100 rounded-3" width="400" height="350">
                                     </a>
