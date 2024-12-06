@@ -1,79 +1,108 @@
 <?php echo $this->extend('plantilla/layout'); ?>
 <?php echo $this->section('contenido'); ?>
 
-<!-- Profile Section -->
-<div class="container bg-white rounded my-3" style="min-height: 650px;">
-    <div class="my-5">
-        <!-- Imagen y datos de la máquina -->
-        <div class="row align-items-center gy-4">
-            <div class="col-6 col-md-6 text-center">
-                <img src="https://th.bing.com/th/id/OIP.QC0SXWJi9XiC3Q1dz2tK4AHaEO?w=1400&h=800&rs=1&pid=ImgDetMain"
-                    class="img-fluid rounded" style="max-height: 300px; width: 90%; object-fit: cover;" alt="Máquina" />
-            </div>
+<!-- Sección del Perfil -->
+<div class="py-4 container bg-white rounded my-3 shadow" style="min-height: 650px;">
+    <div class="row g-4">
 
-            <div class="col-6 col-md-6 text-center text-md-start bg-white  py-5 px-4" style="height: 300px;">
-                <p class="mb-1">Tipo de Maquina:</p>
-                <p class="mb-1">Modelo:</p>
-                <p class="mb-3">Marca:</p>
-                <div class="py-4">
-                    <button type="button" class="btn btn-success me-2 mt-2" data-bs-toggle="modal"
-                        data-bs-target="#exampleModal">Crear Publicación</button>
-                    <a  class="btn btn-success mt-2" href="<?php echo base_url('historial') ?>">Historial</a>
+        <?php foreach ($maquina as $maquina): ?>
+            <!-- Columna izquierda: Imagen y botón -->
+            <div class="col-md-6 text-center py-5">
+                <img src="<?php echo base_url('./public/img/maquina/') . $maquina['img'] ?>" alt="Machine 1"
+                    class="rounded-3" width="500" height="400">
+
+                <div class="d-flex justify-content-center mt-3 py-4">
+                    <button type="button" class="btn btn-success px-4 py-2" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        Crear Publicación
+                    </button>
                 </div>
             </div>
-        </div>
 
-        <!-- Modal -->
-        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog modal-lg">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="exampleModalLabel">Solicitud de Servicio</h1>
-                        <hr style="color: #198754;" />
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <!-- Columna derecha: Detalles y Publicaciones -->
+            <div class="col-md-6 py-5">
+                <!-- Detalles de la máquina -->
+                <div class="row">
+                    <!-- Primera columna: Detalles de la máquina -->
+                    <div class="col-md-6">
+                        <div class="mb-4">
+                            <p class="mb-2"><strong>Tipo de Máquina:</strong> <?php echo $maquina['tipo_maquina']; ?></p>
+                            <p class="mb-2"><strong>Modelo:</strong> <?php echo $maquina['modelo']; ?></p>
+                            <p class="mb-4"><strong>Marca:</strong> <?php echo $maquina['marca']; ?></p>
+                        </div>
+                        <div class="d-flex gap-2">
+                            <button class="btn btn-danger btn-sm">
+                                <i class="bi bi-trash"></i> ¿Deseas eliminar máquina?
+                            </button>
+                        </div>
                     </div>
-                    <div class="modal-body">
-                        <form>
-                            <div class="form-group">
-                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="5" placeholder="¿Deseas publicar una solicitud de servicio?"></textarea>
+
+                    <!-- Segunda columna: Botones adicionales -->
+                    <div class="col-md-6">
+                        <div class="d-flex gap-2 mb-3">
+                            <button class="btn btn-warning btn-sm">
+                                <i class="bi bi-pencil-square"></i> Editar
+                            </button>
+                        </div>
+                        <div class="d-flex gap-2">
+                            <a class="btn btn-success" href="<?php echo base_url('historial'); ?>">
+                                Historial
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- Publicación en curso -->
+                <div class="card shadow-sm p-3 mt-4">
+                    <h5 class="mb-3">Publicación en curso</h5>
+                    <div class="d-flex align-items-center">
+                        <img src="<?php echo base_url('./public/img/maquina/') . $maquina['img']; ?>"
+                            alt="Imagen de la máquina"
+                            class="img-thumbnail me-3" style="width: 100px; height: auto;">
+                        <div>
+                            <p class="mb-0"><strong><?php echo $maquina['tipo_maquina']; ?></strong></p>
+                            <p class="mb-0"><?php echo $maquina['modelo']; ?></p>
+                            <p class="mb-0"><?php echo $maquina['marca']; ?></p>
+                        </div>
+                        <div class="ms-auto">
+                            <textarea class="form-control mb-2" rows="2" readonly>Se dañó el motor</textarea>
+                            <div class="d-flex gap-2">
+                                <button class="btn btn-warning btn-sm">
+                                    <i class="bi bi-pencil-square"></i>
+                                </button>
+                                <button class="btn btn-danger btn-sm">
+                                    <i class="bi bi-trash"></i>
+                                </button>
                             </div>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Guardar</button>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-
-
-        <!-- Sección de Publicación en curso y Solicitudes de técnicos -->
-        <div class="row mt-4 bg-dark rounded">
-
-            <!-- Publicación en curso -->
-            <div class="col-12 col-md-6 mb-4 p-3">
-                <div class="bg-white text-white p-4 rounded shadow">
-                    <h5 class="text-black">Publicación en curso</h5>
-                    <p class="text-black">14/06/2024</p>
-                    <p class="text-black">Se dañó la cadena a la guadaña, la cambié y no encendió más.</p>
-                    <button class="btn btn-dark me-2"><i class="bi bi-pencil-square"></i></button>
-                    <button class="btn btn-dark"><i class="bi bi-journal-text"></i></button>
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Solicitud de Servicio</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form>
+                                <div class="form-group">
+                                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="5" placeholder="¿Deseas publicar una solicitud de servicio?"></textarea>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                            <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Guardar</button>
+                        </div>
+                    </div>
                 </div>
             </div>
+        <?php endforeach; ?>
 
-            <!-- Solicitudes de técnicos -->
-            <div class="col-12 col-md-6 mb-4 p-3">
-                <div class="bg-white text-white p-4 rounded shadow">
-                    <h5 class="text-black">Solicitudes de técnicos</h5>
-                    <p class="text-black">Chats</p>
-                    <p class="text-black">Tienes x notificaciones</p>
-                    <button class="btn btn-success">Ir a chats</button>
-                </div>
-            </div>
-
-        </div>
     </div>
 </div>
 

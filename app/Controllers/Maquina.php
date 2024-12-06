@@ -57,6 +57,7 @@ class Maquina extends BaseController
         $consulta = $maquinaModel->where("id_usuario", $id_usuario)->findAll();
         return $consulta;
     }
+    
 
     private function getUltimoId(){
 
@@ -69,6 +70,12 @@ class Maquina extends BaseController
         }else{
             return "1";
         }
-          
+    }
+
+    public function getMaquinaCliente($id_usuario,$id_maquina){
+        
+        $maquinaModel = new MaquinaModel();
+        $consulta = $maquinaModel->where(["id_usuario" => $id_usuario, "id_maquina" => $id_maquina])->findAll();
+        return $consulta;
     }
 }

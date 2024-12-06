@@ -94,7 +94,7 @@
                     <input type="hidden" class="form-control" id="tipo_persona" value="<?php echo $opcion ;?>" name="tipo_persona">
                 </form>
                 <div class="text-center mt-5">
-                    <a class="text-light h5" href="#">¿Ya tienes una cuenta?</a> | <a class="text-light h5" href="<?php echo base_url('/'); ?>">Inicia Sesión</a>
+                    <a class="text-light h5" href="#">¿Ya tienes una cuenta?</a> | <a class="text-light h5" href="<?php echo base_url('/login'); ?>">Inicia Sesión</a>
                 </div>
             </div>
         </div>
@@ -135,7 +135,7 @@
                         type: "success"
                     }).then(okay => {
                         if (okay) {
-                            window.location.href = '<?php echo base_url('/'); ?>'; 
+                            window.location.href = '<?php echo base_url('/login'); ?>'; 
                         }
                     });
                 })
