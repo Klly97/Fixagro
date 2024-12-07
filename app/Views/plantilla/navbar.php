@@ -27,11 +27,6 @@
 
             <!-- Right-side elements: Links and Profile -->
             <ul class="navbar-nav ms-lg-auto align-items-center">
-                <li class="nav-item me-3">
-                    <a class="nav-link" href="#">
-                        <span><i class="fas fa-home fa-2x"></i></span>
-                    </a>
-                </li>
                 <li class="nav-item dropdown me-3">
                     <a class="nav-link position-relative" href="#" id="commentsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="fas fa-comments fa-2x"></i>
