@@ -5,67 +5,46 @@
 <!-- Profile Section -->
 <section style="background-color: #e7e4e4;">
     <div class="container">
-        <div class="row py-5 gy-4">
-            <!-- Tarjeta de perfil -->
-            <div class="col-12 col-lg-4">
-                <div class="card text-center">
-                    <div class="card-body">
-                        <img src="https://as1.ftcdn.net/v2/jpg/09/65/01/78/1000_F_965017857_17LYzOToXwVcwZXXpqRrVjDZRQBKxcQw.jpg" alt="avatar"
-                            class="rounded-circle img-fluid mx-auto" style="width: 150px;">
-                        <h5 class="my-2"><?php echo session('nombre') . ' ' . session('apellido') ?></h5>
-                        <div class="rating mb-2">
-                            <i class="fas fa-star text-warning"></i>
-                            <i class="fas fa-star text-warning"></i>
-                            <i class="fas fa-star text-warning"></i>
-                            <i class="far fa-star text-warning"></i>
-                            <i class="far fa-star text-warning"></i>
-                        </div>
-                        <p class="text-muted mb-0">Ubicación</p>
-                        <p class="text-muted"><?php echo session('municipio') . ', ' . session('departamento') ?></p>
-                    </div>
+        <!-- Historial -->
+        <div class="col-12 col-lg-8">
+            <div class="card mb-4">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h4 class="history-title py-2 mb-0">Historial</h4>
                 </div>
-            </div>
-
-            <!-- Historial -->
-            <div class="col-12 col-lg-8">
-                <div class="card mb-4">
-                    <div class="card-header d-flex justify-content-between align-items-center">
-                        <h4 class="history-title py-2 mb-0">Historial</h4>
-                    </div>
-                    <div class="card-body p-2">
-                        <div class="table-responsive">
-                            <table class="table table-striped">
-                                <thead class="thead-dark">
-                                    <tr>
-                                        <th scope="col">Fecha de creación</th>
-                                        <th scope="col">Estado</th>
-                                        <th scope="col">Técnico</th>
-                                        <th scope="col">Problema Técnico</th>
-                                        <th scope="col">Descripción</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>20-06-2024</td>
-                                        <td><span class="status status-finalizado">Finalizado</span></td>
-                                        <td>Andres Bedoya</td>
-                                        <td>Eléctrico</td>
-                                        <td>Se realizó cambio de botón de encendido.</td>
-                                    </tr>
-                                    <tr>
-                                        <td>26-06-2024</td>
-                                        <td><span class="status status-mantenimiento">Mantenimiento</span></td>
-                                        <td>Andres Bedoya</td>
-                                        <td></td>
-                                        <td></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
+                <div class="card-body p-2">
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th scope="col">Fecha de creación</th>
+                                    <th scope="col">Estado</th>
+                                    <th scope="col">Técnico</th>
+                                    <th scope="col">Problema Técnico</th>
+                                    <th scope="col">Descripción</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>20-06-2024</td>
+                                    <td><span class="status status-finalizado">Finalizado</span></td>
+                                    <td>Andres Bedoya</td>
+                                    <td>Eléctrico</td>
+                                    <td>Se realizó cambio de botón de encendido.</td>
+                                </tr>
+                                <tr>
+                                    <td>26-06-2024</td>
+                                    <td><span class="status status-mantenimiento">Mantenimiento</span></td>
+                                    <td>Andres Bedoya</td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
     </div>
 </section>
 

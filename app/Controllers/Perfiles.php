@@ -16,10 +16,6 @@ class Perfiles extends BaseController
         return view('publicacion_maquina', $datos);
     }
 
-    public function ventanaFin(){
-        return view('ventanaFin');
-    }
-
     public function historial(){
         return view('historial');
     }

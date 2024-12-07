@@ -23,7 +23,6 @@ $routes->post('/validarCredencialesLogin', 'Inicio::validarDatosIngreso');
 $routes->post('/crear_persona', 'Persona::crear');
 
 $routes->get('/publicacion_maquina/(:num)', 'Perfiles::publicacion_maquina/$1');
-$routes->get('/ventanafin', 'perfiles::ventanaFin');
 $routes->get('/historial', 'perfiles::historial');
 $routes->get('/servicio_mantenimiento', 'perfiles::servicio_mantenimiento');
 

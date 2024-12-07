@@ -56,13 +56,12 @@
                 <div class="card shadow-sm p-3 mt-4">
                     <h5 class="mb-3">Publicación en curso</h5>
                     <div class="d-flex align-items-center">
-                        <img src="<?php echo base_url('./public/img/maquina/') . $maquina['img']; ?>"
-                            alt="Imagen de la máquina"
-                            class="img-thumbnail me-3" style="width: 100px; height: auto;">
-                        <div>
-                            <p class="mb-0"><strong><?php echo $maquina['tipo_maquina']; ?></strong></p>
-                            <p class="mb-0"><?php echo $maquina['modelo']; ?></p>
-                            <p class="mb-0"><?php echo $maquina['marca']; ?></p>
+                    <img src="<?php echo base_url('./public/img/maquina/') . $maquina['img'] ?>" alt="Machine 1"
+                    class="rounded-3" width="150" height="150">
+                        <div class="mx-auto t-auto">
+                            <p class="mb-2"><strong>Tipo de Máquina:</strong> <?php echo $maquina['tipo_maquina']; ?></p>
+                            <p class="mb-2"><strong>Modelo:</strong> <?php echo $maquina['modelo']; ?></p>
+                            <p class="mb-4"><strong>Marca:</strong> <?php echo $maquina['marca']; ?></p>
                         </div>
                         <div class="ms-auto">
                             <textarea class="form-control mb-2" rows="2" readonly>Se dañó el motor</textarea>
@@ -87,20 +86,36 @@
                             <h1 class="modal-title fs-5" id="exampleModalLabel">Solicitud de Servicio</h1>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <div class="modal-body">
+
+                        <!-- Ajusta el layout con clases Bootstrap -->
+                        <div class="d-flex align-items-center p-4">
+                        <img src="<?php echo base_url('./public/img/maquina/') . $maquina['img'] ?>" alt="Machine 1"
+                        class="rounded-3" width="150" height="150">
+                            <div class="ms-3">
+                                <p class="mb-2"><strong>Tipo de Máquina:</strong> <?php echo $maquina['tipo_maquina']; ?></p>
+                                <p class="mb-2"><strong>Modelo:</strong> <?php echo $maquina['modelo']; ?></p>
+                                <p class="mb-4"><strong>Marca:</strong> <?php echo $maquina['marca']; ?></p>
+                            </div>
+                        </div>
+
+                        <!-- Reducir el modal-body -->
+                        <div class="modal-body py-2 px-3">
                             <form>
                                 <div class="form-group">
-                                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="5" placeholder="¿Deseas publicar una solicitud de servicio?"></textarea>
+                                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"
+                                        placeholder="¿Deseas publicar una solicitud de servicio?"></textarea>
                                 </div>
                             </form>
                         </div>
+
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                            <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Guardar</button>
+                            <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Publicar</button>
                         </div>
                     </div>
                 </div>
             </div>
+
         <?php endforeach; ?>
 
     </div>
