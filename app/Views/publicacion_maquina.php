@@ -11,20 +11,30 @@
                 <img src="<?php echo base_url('./public/img/maquina/') . $maquina['img'] ?>" alt="Machine 1"
                     class="rounded-3 mb-4" width="400" height="300">
 
-                <!-- Detalles y acciones -->
-                <div class="w-100">
-                    <div class="text-start mb-3">
+                <!-- Detalles y acciones en dos filas -->
+                <div class="row w-100">
+                    <!-- Primera fila: Detalles de la máquina y botón de eliminar -->
+                    <div class="col-12 mb-3 text-center">
                         <p class="mb-2"><strong>Tipo de Máquina:</strong> <?php echo $maquina['tipo_maquina']; ?></p>
                         <p class="mb-2"><strong>Modelo:</strong> <?php echo $maquina['modelo']; ?></p>
                         <p class="mb-4"><strong>Marca:</strong> <?php echo $maquina['marca']; ?></p>
-                    </div>
-                    <div class="text-center">
                         <button class="btn btn-danger btn-sm">
                             <i class="bi bi-trash"></i> ¿Deseas eliminar máquina?
                         </button>
                     </div>
+
+                    <!-- Segunda fila: Botones adicionales -->
+                    <div class="col-12 d-flex justify-content-center gap-2">
+                        <button class="btn btn-warning btn-sm">
+                            <i class="bi bi-pencil-square"></i> Editar
+                        </button>
+                        <a class="btn btn-success btn-sm" href="<?php echo base_url('historial'); ?>">
+                            <i class="bi bi-clock-history"></i> Historial
+                        </a>
+                    </div>
                 </div>
             </div>
+
 
             <!-- Segunda columna: Publicaciones y Modal -->
             <div class="col-md-6">
