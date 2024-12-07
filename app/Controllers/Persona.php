@@ -77,7 +77,6 @@ class Persona extends BaseController
             'municipio' => $this->request->getPost('municipio'),
             'departamento' => $this->request->getPost('departamento'),
             'telefono' => $this->request->getPost('telefono'),
-            'contrasena' => md5($this->request->getPost('contrasena')),
         ];
 
         // Actualizar los datos del usuario en la base de datos

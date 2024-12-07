@@ -28,15 +28,73 @@
                 </div>
             </div>
 
-            <div class="col-lg-8">
-                <div class="card mb-4">
+             <!-- Columna de publicaciones -->
+             <div class="col-lg-8">
+                <!-- Publicaciones de tu zona -->
+                <div class="mb-5">
+                    <h3 class="mb-4">Publicaciones de tu zona</h3>
+                    <div class="row g-3">
+                        <?php if (!empty($ofertas_locales)): ?>
+                            <?php foreach ($ofertas_locales as $oferta): ?>
+                                <div class="col-md-6">
+                                    <div class="card h-100 shadow-lg border-success">
+                                        <div style="height: 200px; overflow: hidden;" class="d-flex align-items-center justify-content-center bg-light">
+                                            <img src="<?= base_url('uploads/' . (file_exists(FCPATH . 'uploads/' . $oferta['imagen']) ? esc($oferta['imagen']) : 'default-placeholder.png')) ?>" 
+                                                 class="img-fluid" 
+                                                 alt="Imagen de la máquina" 
+                                                 style="max-height: 100%; max-width: 100%; object-fit: contain;">
+                                        </div>
+                                        <div class="card-body text-center">
+                                            <h5 class="card-title text-uppercase text-success"><?= esc($oferta['tipo_maquina']) ?></h5>
+                                            <p class="card-text mb-2">
+                                                <strong>Modelo:</strong> <?= esc($oferta['modelo']) ?> |
+                                                <strong>Marca:</strong> <?= esc($oferta['marca']) ?>
+                                            </p>
+                                            <p class="card-text"><?= esc($oferta['descripcion']) ?></p>
+                                        </div>
+                                        <div class="card-footer text-center bg-success text-white">
+                                            <p>Ubicación: <?= esc($oferta['municipio']) ?>, <?= esc($oferta['departamento']) ?></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            <?php endforeach; ?>
+                        <?php else: ?>
+                            <p>No hay publicaciones locales.</p>
+                        <?php endif; ?>
+                    </div>
+                </div>
 
-
-                    <div class="card-body">
-                        <div class="row g-2">
-
-
-                        </div>
+                <!-- Otras publicaciones -->
+                <div>
+                    <h3 class="mb-4">Otras publicaciones</h3>
+                    <div class="row g-3">
+                        <?php if (!empty($ofertas_otros)): ?>
+                            <?php foreach ($ofertas_otros as $oferta): ?>
+                                <div class="col-md-6">
+                                    <div class="card h-100 shadow-lg">
+                                        <div style="height: 200px; overflow: hidden;" class="d-flex align-items-center justify-content-center bg-light">
+                                            <img src="<?= base_url('uploads/' . (file_exists(FCPATH . 'uploads/' . $oferta['imagen']) ? esc($oferta['imagen']) : 'default-placeholder.png')) ?>" 
+                                                 class="img-fluid" 
+                                                 alt="Imagen de la máquina" 
+                                                 style="max-height: 100%; max-width: 100%; object-fit: contain;">
+                                        </div>
+                                        <div class="card-body text-center">
+                                            <h5 class="card-title text-uppercase text-primary"><?= esc($oferta['tipo_maquina']) ?></h5>
+                                            <p class="card-text mb-2">
+                                                <strong>Modelo:</strong> <?= esc($oferta['modelo']) ?> |
+                                                <strong>Marca:</strong> <?= esc($oferta['marca']) ?>
+                                            </p>
+                                            <p class="card-text"><?= esc($oferta['descripcion']) ?></p>
+                                        </div>
+                                        <div class="card-footer text-center bg-light text-muted">
+                                            <p>Ubicación: <?= esc($oferta['municipio']) ?>, <?= esc($oferta['departamento']) ?></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            <?php endforeach; ?>
+                        <?php else: ?>
+                            <p>No hay otras publicaciones.</p>
+                        <?php endif; ?>
                     </div>
                 </div>
             </div>

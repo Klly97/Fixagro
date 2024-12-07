@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\PersonaModel;
+use App\Models\Oferta_modelo;
 use App\Models\MaquinaModel;
 use CodeIgniter\Session\Session;
 use App\Controllers\Maquina;
@@ -10,11 +11,14 @@ use App\Controllers\Maquina;
 class Inicio extends BaseController
 {
     
+    //inicio de sesion
     public function index()
     {
         return view('inicio_sesion');
     }
 
+
+    //valida inicio de sesion/perfiles
     public function inicio()
     {
         $tipo_persona=session('tipo_persona');
@@ -25,9 +29,35 @@ class Inicio extends BaseController
                 $maquina = new Maquina();
                 $datos['maquinas'] = $maquina->getMaquinasCliente(session('id'));
                 return view('inicio_cliente',$datos);
-                
+
+                $model = new Oferta_modelo();
+                $data['ofertas'] = $model->where('id_cliente', session('id'))->findAll(); // Filtrar por cliente
+                return view('inicio_cliente', $data);
+
             } elseif ($tipo_persona == "TECNICO") {
-                return view('inicio_tecnico');
+
+                $model = new Oferta_modelo();
+                $municipio = session('municipio');
+                $departamento = session('departamento');
+    
+                // Obtiene ofertas que coincidan en ciudad y departamento
+                $ofertas_locales = $model->select('ofertas.*, persona.municipio, persona.departamento')
+                    ->join('persona', 'persona.id = ofertas.id_cliente')
+                    ->where('persona.municipio', $municipio)
+                    ->where('persona.departamento', $departamento)
+                    ->findAll();
+    
+                // Obtiene las demás ofertas
+                $ofertas_otros = $model->select('ofertas.*, persona.municipio, persona.departamento')
+                    ->join('persona', 'persona.id = ofertas.id_cliente')
+                    ->where('persona.municipio !=', $municipio)
+                    ->orWhere('persona.departamento !=', $departamento)
+                    ->findAll();
+    
+                $data['ofertas_locales'] = $ofertas_locales;
+                $data['ofertas_otros'] = $ofertas_otros;
+    
+                return view('inicio_tecnico', $data);
             }
         }else{
             return redirect('login');

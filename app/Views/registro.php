@@ -131,7 +131,8 @@
                     Swal.fire({
                         icon: 'success',
                         title: 'Exitoso!',
-                        text: 'Los datos han sido registrados. RESPUESTA SERVIDOR =>' + data,
+                        text: 'Se ha registrado Exitosamente'
+                        + data,
                         type: "success"
                     }).then(okay => {
                         if (okay) {
