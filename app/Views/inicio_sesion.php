@@ -58,7 +58,7 @@ if (isset($usuario)) {
                             <button class="btn btn-dark text-dark  btn-lg btn-block" type="submit" style="background-color:#ffffff; width: 50%;">Ingresar</button>
                         </div>
 
-                        <a class="small  mb-3 text-light d-flex justify-content-center align-items-center" href="#!">Olvidaste tu contraseña</a>
+                        <a class="small  mb-3 text-light d-flex justify-content-center align-items-center" href="<?php echo base_url('restablecer') ?>">Olvidaste tu contraseña</a>
                         <p class="mb-8 pb-lg-2 d-flex justify-content-center align-items-center" style="color: #393f81;"><a href="<?php echo base_url('selec_registro') ?>"
                                 style="color: #ffffff;">Registrarse</a></p>
                     </form>

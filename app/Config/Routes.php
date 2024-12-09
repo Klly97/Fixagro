@@ -36,7 +36,6 @@ $routes->post('/perfil/eliminarPersona', 'Persona::eliminarPersona');//para elim
 
 // Rutas para gestión de máquinas
 $routes->get('/publicacion_maquina/(:num)', 'Maquina::maquina/$1');// Publicaciones relacionadas con el historial de máquinas
-$routes->get('/servicio_mantenimiento', 'Perfiles::servicio_mantenimiento');// Servicios de mantenimiento
 $routes->post('/crear_maquina', 'Maquina::crear');//para agregar máquinas
 
 
