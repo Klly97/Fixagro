@@ -8,3 +8,7 @@ writable/debugbar/
 writable/logs/
 
 .vscode/
+
+public/img/
+
+uploads/

@@ -6,6 +6,18 @@ use App\Models\MaquinaModel;
 
 class Maquina extends BaseController
 {
+    
+    // vista que muestra informacion de la maquina
+    public function maquina ($id_maquina){
+
+        $maquina = new Maquina();
+        $datos['maquina'] = $maquina->getMaquinaCliente(session('id'),$id_maquina);
+
+        $publicaciones_maquina = new Publicacion();
+        $datos['publicaciones'] = $publicaciones_maquina->getPublicacionesMaquina($id_maquina);
+        return view('publicacion_maquina', $datos);
+    }
+
     public function crear()
     {
         $tipo_maquina =  $this->request->getPostGet('tipo');

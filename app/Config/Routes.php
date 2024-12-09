@@ -38,21 +38,11 @@ $routes->get('persona/detalle/(:num)', 'Persona::detalle/$1');//abrir perfil de 
 
 
 // Rutas para gestión de máquinas
-$routes->get('/publicacion_maquina/(:num)', 'Perfiles::publicacion_maquina/$1');// Publicaciones relacionadas con el historial de máquinas
-$routes->get('/historial', 'perfiles::historial');// Historial de las máquinas
-$routes->get('/servicio_mantenimiento', 'perfiles::servicio_mantenimiento');// Servicios de mantenimiento
+$routes->get('/publicacion_maquina/(:num)', 'Maquina::maquina/$1');// Publicaciones relacionadas con el historial de máquinas
+$routes->get('/servicio_mantenimiento', 'Perfiles::servicio_mantenimiento');// Servicios de mantenimiento
 $routes->post('/crear_maquina', 'Maquina::crear');//para agregar máquinas
 
 
 // Rutas para gestión de publicacion
-$routes->get('/crear_publicacion', 'Oferta_Cliente::RegistroPublicacion'); //para crear publicaicion///buscar metodo en perfiles
-$routes->get('/ofertas', 'publicacion_maquinas::index'); // Listar todas las ofertas----------------------
-$routes->get('/ofertas/crear', 'Oferta_Cliente::create'); // Página para crear una nueva oferta-----------------
-$routes->post('/ofertas/guardar', 'Oferta_Cliente::store'); // Guardar una nueva oferta--------------
-$routes->get('/ofertas/editar/(:num)', 'Oferta_Cliente::edit/$1'); // Página para editar una oferta específica
-$routes->post('/ofertas/actualizar/(:num)', 'Oferta_Cliente::update/$1'); // Actualizar una oferta específica
-$routes->get('/ofertas/eliminar/(:num)', 'Oferta_Cliente::delete/$1'); // Eliminar una oferta específica
-
-
-
-// Rutas para el chat
+$routes->post('/crear_publicacion', 'Publicacion::crear'); //para crear publicaicion///buscar metodo en perfiles
+$routes->get('/historial', 'Publicacion::historial');// Historial de las máquinas
