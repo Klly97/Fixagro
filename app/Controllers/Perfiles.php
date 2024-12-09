@@ -12,13 +12,12 @@ class Perfiles extends BaseController
         return view('perfil');
     }
 
-    
-    public function crear()
+    public function crearfotoperfil()
     {
-        $avatar = $this->request->getFile('foto');
+        $avatar = $this->request->getFile('avatar');
 
 
-        $extension = $imagen->getExtension();
+        $extension = $avatar->getExtension();
 
         if (in_array($extension, array('png', 'jpg', 'jpeg', 'PNG', 'JPG', 'JPEG'))) {
 
@@ -26,13 +25,9 @@ class Perfiles extends BaseController
           
             $nombre_foto = 'foto_' . self::getUltimoId() . '.' . $extension;
 
-            $registros = $maquinaModel->save([
-                'tipo_maquina' => $tipo_maquina,
-                'modelo' => $modelo,
-                'marca' => $marca,
-                'img' => $nombre_foto,
-                'id_usuario' => $id_usuario,
-                'estado' => $estado
+            $registros = $personaModel->save([
+               
+                'avatar' => $avatar
             ]);
 
             $ruta = "./public/img/perfil";
@@ -41,7 +36,7 @@ class Perfiles extends BaseController
                 mkdir($ruta, 0777, false);
             }
 
-            $imagen->move('./public/img/perfil', $nombre_foto);
+            $avatar->move('./public/img/perfil', $nombre_foto);
 
             if ($registros) {
                echo $mensaje = "OK#INSERT";
