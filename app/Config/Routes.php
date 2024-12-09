@@ -33,6 +33,9 @@ $routes->get('/perfil', 'Persona::editarPerfil'); // Para editar datos del perfi
 $routes->post('/perfil/cambiarContrasena', 'Persona::cambiarContrasena'); //para el cambio de contraseña
 $routes->post('/actualizar_persona', 'Persona::actualizarPerfil');//para la actualizacion del perfil
 $routes->post('/perfil/eliminarPersona', 'Persona::eliminarPersona');//para eliminar perfil
+$routes->post('/buscar', 'Persona::buscarPersona');//Para buscar perfiles por su nombre
+$routes->get('persona/detalle/(:num)', 'Persona::detalle/$1');//abrir perfil de la persona
+
 
 // Rutas para gestión de máquinas
 $routes->get('/publicacion_maquina/(:num)', 'Perfiles::publicacion_maquina/$1');// Publicaciones relacionadas con el historial de máquinas

@@ -18,9 +18,9 @@
         <!-- Navbar content wrapper for collapse functionality on smaller screens -->
         <div class="collapse navbar-collapse" id="navbarContent">
             <!-- Centered Search form for desktop, full width on mobile -->
-            <form class="d-flex col-12 col-lg-6 mx-lg-auto my-2 my-lg-0">
-                <input type="search" class="form-control rounded" placeholder="Busqueda de tecnicos" aria-label="Search" style="min-width: 125px;">
-                <button class="btn btn-outline-primary ms-2 rounded-circle" data-bs-toggle="modal" data-bs-target="#searchModal" type="button">
+            <form class="d-flex col-12 col-lg-6 mx-lg-auto my-2 my-lg-0" action="/fixagro/buscar" method="post">
+                <input type="search" class="form-control rounded" placeholder="Buscar Perfiles" aria-label="Search" style="min-width: 125px;" name="busqueda">
+                <button class="btn btn-outline-primary ms-2 rounded-circle" data-bs-toggle="modal" data-bs-target="#searchModal" type="submit">
                     <i class="fas fa-search text-primary"></i>
                 </button>
             </form>
