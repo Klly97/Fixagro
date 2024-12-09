@@ -30,34 +30,11 @@ class Inicio extends BaseController
                 $datos['maquinas'] = $maquina->getMaquinasCliente(session('id'));
                 return view('inicio_cliente',$datos);
 
-                $model = new Oferta_modelo();
-                $data['ofertas'] = $model->where('id_cliente', session('id'))->findAll(); // Filtrar por cliente
-                return view('inicio_cliente', $data);
-
             } elseif ($tipo_persona == "TECNICO") {
 
-                $model = new Oferta_modelo();
-                $municipio = session('municipio');
-                $departamento = session('departamento');
-    
-                // Obtiene ofertas que coincidan en ciudad y departamento
-                $ofertas_locales = $model->select('ofertas.*, persona.municipio, persona.departamento')
-                    ->join('persona', 'persona.id = ofertas.id_cliente')
-                    ->where('persona.municipio', $municipio)
-                    ->where('persona.departamento', $departamento)
-                    ->findAll();
-    
-                // Obtiene las demás ofertas
-                $ofertas_otros = $model->select('ofertas.*, persona.municipio, persona.departamento')
-                    ->join('persona', 'persona.id = ofertas.id_cliente')
-                    ->where('persona.municipio !=', $municipio)
-                    ->orWhere('persona.departamento !=', $departamento)
-                    ->findAll();
-    
-                $data['ofertas_locales'] = $ofertas_locales;
-                $data['ofertas_otros'] = $ofertas_otros;
-    
-                return view('inicio_tecnico', $data);
+                $publicaciones = new Publicacion();
+                $datos['publicaciones'] = $publicaciones->getPublicacionesTecnicos();
+                return view('inicio_tecnico', $datos);
             }
         }else{
             return redirect('login');
@@ -95,7 +72,7 @@ class Inicio extends BaseController
                 $mensaje = 'DATOS_CORRECTOS';
             }
         }
-      
+
         echo $mensaje;
     }
 

@@ -2,14 +2,14 @@
 
 namespace App\Controllers;
 
-use App\Models\Oferta_modelo;
+use App\Models\PublicacionModel;
 
-class Oferta_Cliente extends BaseController
+class Publicacion extends BaseController
 {
     // Muestra todas las ofertas
     public function index()
     {
-        $model = new Oferta_modelo();
+        $model = new PublicacionModel();
         $data['ofertas'] = $model->findAll(); // Obtiene todas las ofertas
 
         return view('inicio_cliente', $data); // Carga la vista con los datos
@@ -21,35 +21,42 @@ class Oferta_Cliente extends BaseController
         return view('ofertas/crear'); // Vista para crear una oferta
     }
 
-    // Almacena una nueva oferta en la base de datos
-    public function store()
+    public function getPublicacionesMaquina($id_maquina)
     {
-        $model = new Oferta_modelo();
-        $archivo = $this->request->getFile('imagen');
-        $nombreArchivo = null;
-    
-        if ($archivo && $archivo->isValid() && !$archivo->hasMoved()) {
-            $nombreArchivo = $archivo->getRandomName();
-            $archivo->move('uploads', $nombreArchivo);
-        }
-    
-        $model->save([
-            'id_cliente'    => session('id'), // Asocia el cliente autenticado
-            'tipo_maquina'  => $this->request->getPost('tipo_maquina'),
-            'modelo'        => $this->request->getPost('modelo'),
-            'marca'         => $this->request->getPost('marca'),
-            'descripcion'   => $this->request->getPost('descripcion'),
-            'imagen'        => $nombreArchivo,
-        ]);
-    
-        return redirect()->to('/inicio');
+
+        $publi_model = new PublicacionModel();
+        $publicaciones = $publi_model->where(["id_maquina" => $id_maquina, "estado" => "ACTIVO"])->findAll();
+        return $publicaciones;
     }
-    
+
+
+    public function historial()
+    {
+        return view('historial');
+    }
+    // Almacena una nueva oferta en la base de datos
+    public function crear()
+    {
+        $model = new PublicacionModel();
+        $nombreArchivo = null;
+
+        $id_maquina = $this->request->getPostGet('id_maquina');
+        $descripcion = $this->request->getPostGet('descripcion');
+
+        $model->save([
+            'id_maquina'    => $id_maquina,
+            'id_usuario'    => session('id'), // Asocia el cliente autenticado
+            'descripcion'   =>  $descripcion
+        ]);
+
+        return redirect()->to('/publicacion_maquina/'.$id_maquina);
+    }
+
 
     // Muestra el formulario para editar una oferta
     public function edit($id)
     {
-        $model = new Oferta_modelo();
+        $model = new PublicacionModel();
         $data['oferta'] = $model->find($id); // Busca la oferta por ID
 
         if (!$data['oferta']) {
@@ -62,7 +69,7 @@ class Oferta_Cliente extends BaseController
     // Actualiza una oferta existente
     public function update($id)
     {
-        $model = new Oferta_modelo();
+        $model = new PublicacionModel();
         $oferta = $model->find($id); // Busca la oferta por ID
 
         if (!$oferta) {
@@ -98,7 +105,7 @@ class Oferta_Cliente extends BaseController
     // Elimina una oferta
     public function delete($id)
     {
-        $model = new Oferta_modelo();
+        $model = new PublicacionModel();
         $oferta = $model->find($id); // Busca la oferta por ID
 
         if (!$oferta) {
@@ -114,4 +121,18 @@ class Oferta_Cliente extends BaseController
 
         return redirect()->to('/inicio'); // Redirige a la lista de ofertas
     }
+
+    public function getPublicacionesTecnicos()
+    {
+     
+        $publi_model = new PublicacionModel();
+        $publicaciones = $publi_model->select("publicaciones.descripcion, publicaciones.id_publicacion, publicaciones.fecha_creacion, c.img, concat(concat(d.nombre, ' '),d.apellido) nombre_persona");
+        $publicaciones = $publi_model->join('maquinas c',"c.id_maquina = publicaciones.id_maquina AND c.id_usuario = publicaciones.id_usuario",'join');
+        $publicaciones = $publi_model->join('persona d',"d.id = publicaciones.id_usuario",'join');
+        $publicaciones = $publi_model->where("publicaciones.estado = 'ACTIVO' AND  EXISTS (SELECT 1 from persona b
+			                                                            where b.id = publicaciones.id_usuario
+                                                                         AND upper(b.departamento) = ('".session("departamento")."'))")->findAll();
+        return $publicaciones;
+    }
+
 }

@@ -2,7 +2,7 @@
 <nav class="navbar navbar-expand-lg navbar-#ffffff bg-light">
     <div class="container-fluid">
         <!-- Brand / Logo -->
-        <a class="navbar-brand d-flex align-items-center col-lg-3" href="#">
+        <a class="navbar-brand d-flex align-items-center col-lg-3" href="<?php echo base_url('/inicio')?>">
             <div id="video-container" class="w-100" style="height: 7vh;">
                 <video autoplay loop muted style="width: 100%; height: 100%;">
                     <source src="<?php echo base_url('public/img/fixLogo.mp4'); ?>">
