@@ -57,3 +57,4 @@ $routes->get('trabajo/asignar/(:num)', 'Persona::asignarTrabajo/$1');
 
 $routes->get('/finalizar_servicio', 'Maquina::finalizar_servicio');
 
+$routes->post('/ofertas', 'Ofertas::index'); //para crear publicaicion///buscar metodo en perfiles

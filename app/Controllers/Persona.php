@@ -11,14 +11,14 @@ class Persona extends BaseController
 {
     public function crear()
     {
-        $nombre =  $this->request->getPostGet('nombre');
+        $nombre = $this->request->getPostGet('nombre');
         $apellido = $this->request->getPostGet('apellido');
         $telefono = $this->request->getPostGet('telefono');
         $direccion = $this->request->getPostGet('direccion');
         $municipio = $this->request->getPostGet('municipio');
         $departamento = $this->request->getPostGet('departamento');
         $correo = $this->request->getPostGet('correo');
-        $contrasena =  md5($this->request->getPostGet('contrasena'));
+        $contrasena = md5($this->request->getPostGet('contrasena'));
         $tipo_persona = $this->request->getPostGet('tipo_persona');
         $usuariosModel = new PersonaModel();
 
@@ -89,28 +89,24 @@ class Persona extends BaseController
     }
     public function cambiarContrasena()
     {
-        $usuarioId = session()->get('id');
         $personaModel = new PersonaModel();
+        $usuarioId = session()->get('id');
         $usuario = $personaModel->find($usuarioId);
-        // Obtener los datos del formulario
+
         $oldPassword = $this->request->getPost('old_password');
         $newPassword = $this->request->getPost('new_password');
 
-
-
-
-        // Suponiendo que tienes el ID del usuario en sesión
-        $usuario = $personaModel->find(session()->get('id'));
-
         if (md5($oldPassword) === $usuario['contrasena']) {
-            // Si la contraseña actual es correcta, actualizar la nueva contraseña
-            $newHashedPassword = md5($newPassword); // O usa password_hash() para mayor seguridad
+            $newHashedPassword = md5($newPassword);
             $personaModel->update($usuario['id'], ['contrasena' => $newHashedPassword]);
-            return redirect()->to('/login')->with('mensaje', 'Contraseña actualizada correctamente');
+            session()->destroy();
+
+            return $this->response->setJSON(['success' => true]);
         } else {
-            return redirect()->to('/perfil')->with('error', 'Contraseña actual incorrecta');
+            return $this->response->setJSON(['success' => false, 'message' => 'Contraseña actual incorrecta']);
         }
     }
+
 
     public function eliminarPersona()
     {
@@ -120,6 +116,7 @@ class Persona extends BaseController
 
 
         if ($personaModelo->delete($usuarioId)) {
+            session()->destroy();
             return redirect()->to('/login')->with('mensaje', 'exito en eliminar');
         } else {
             return redirect()->back()->with('error', 'Error al eliminar la persona');
