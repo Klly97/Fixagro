@@ -3,15 +3,17 @@
 namespace App\Controllers;
 
 use App\Models\MaquinaModel;
+use App\Models\PublicacionModel;
 
 class Maquina extends BaseController
 {
-    
+
     // vista que muestra informacion de la maquina
-    public function maquina ($id_maquina){
+    public function maquina($id_maquina)
+    {
 
         $maquina = new Maquina();
-        $datos['maquina'] = $maquina->getMaquinaCliente(session('id'),$id_maquina);
+        $datos['maquina'] = $maquina->getMaquinaCliente(session('id'), $id_maquina);
 
         $publicaciones_maquina = new Publicacion();
         $datos['publicaciones'] = $publicaciones_maquina->getPublicacionesMaquina($id_maquina);
@@ -33,7 +35,7 @@ class Maquina extends BaseController
         if (in_array($extension, array('png', 'jpg', 'jpeg', 'PNG', 'JPG', 'JPEG'))) {
 
             $maquinaModel = new MaquinaModel();
-          
+
             $nombre_foto = 'foto_' . self::getUltimoId() . '.' . $extension;
 
             $registros = $maquinaModel->save([
@@ -54,24 +56,26 @@ class Maquina extends BaseController
             $imagen->move('./public/img/maquina', $nombre_foto);
 
             if ($registros) {
-               echo $mensaje = "OK#INSERT";
+                echo $mensaje = "OK#INSERT";
             } else {
-               echo $mensaje = "ERROR#INSERT";
+                echo $mensaje = "ERROR#INSERT";
             }
-        }else{
-           echo $mensaje = "NO#INSERT";
+        } else {
+            echo $mensaje = "NO#INSERT";
         }
     }
 
-    public function getMaquinasCliente($id_usuario){
-        
+    public function getMaquinasCliente($id_usuario)
+    {
+
         $maquinaModel = new MaquinaModel();
         $consulta = $maquinaModel->where("id_usuario", $id_usuario)->findAll();
         return $consulta;
     }
-    
 
-    private function getUltimoId(){
+
+    private function getUltimoId()
+    {
 
         $maquinaModel = new MaquinaModel();
 
@@ -79,18 +83,100 @@ class Maquina extends BaseController
 
         if ($sentencia) {
             return  $sentencia[0]['id_maquina'] + 1;
-        }else{
+        } else {
             return "1";
         }
     }
 
-    public function getMaquinaCliente($id_usuario,$id_maquina){
-        
+    public function getMaquinaCliente($id_usuario, $id_maquina)
+    {
+
         $maquinaModel = new MaquinaModel();
         $consulta = $maquinaModel->where(["id_usuario" => $id_usuario, "id_maquina" => $id_maquina])->findAll();
         return $consulta;
     }
-    public function finalizar_servicio(){
+    public function finalizar_servicio()
+    {
         return view('finalizar_servicio');
+    }
+
+    public function actualizar()
+{
+    $maquinaModel = new MaquinaModel();
+    $id_maquina = $this->request->getPost('id_maquina');
+    $tipo = $this->request->getPost('tipo');
+    $modelo = $this->request->getPost('modelo');
+    $marca = $this->request->getPost('marca');
+    $imagen = $this->request->getFile('foto');
+
+    // Obtener los datos actuales de la máquina
+    $maquinaActual = $maquinaModel->find($id_maquina);
+
+    // Preparar los datos a actualizar
+    $datosActualizar = [];
+
+    // Verificar si los campos no están vacíos antes de actualizar
+    if (!empty($tipo)) {
+        $datosActualizar['tipo_maquina'] = $tipo;
+    } else {
+        $datosActualizar['tipo_maquina'] = $maquinaActual['tipo_maquina'];
+    }
+
+    if (!empty($modelo)) {
+        $datosActualizar['modelo'] = $modelo;
+    } else {
+        $datosActualizar['modelo'] = $maquinaActual['modelo'];
+    }
+
+    if (!empty($marca)) {
+        $datosActualizar['marca'] = $marca;
+    } else {
+        $datosActualizar['marca'] = $maquinaActual['marca'];
+    }
+
+    // Verificar si se subió una nueva imagen
+    if ($imagen && $imagen->isValid()) {
+        $extension = $imagen->getExtension();
+        if (in_array($extension, ['png', 'jpg', 'jpeg'])) {
+            $nombre_foto = 'foto_' . $id_maquina . '.' . $extension;
+
+            // Eliminar la imagen anterior si existía
+            if (!empty($maquinaActual['img']) && file_exists('./public/img/maquina/' . $maquinaActual['img'])) {
+                unlink('./public/img/maquina/' . $maquinaActual['img']);
+            }
+
+            // Mover la nueva imagen
+            $imagen->move('./public/img/maquina', $nombre_foto);
+            $datosActualizar['img'] = $nombre_foto;
+        }
+    }
+
+    // Actualizar los datos en la base de datos
+    $resultado = $maquinaModel->update($id_maquina, $datosActualizar);
+
+    if ($resultado) {
+        return redirect()->to(base_url('publicacion_maquina/' . $id_maquina) . '?v=' . time())->with('mensaje', 'Máquina actualizada con éxito.');
+    } else {
+        return redirect()->back()->with('error', 'No se pudo actualizar la máquina.');
+    }
+}
+
+
+    public function eliminar($id_maquina)
+    {
+        $maquinaModel = new MaquinaModel();
+        $publicacionModel = new PublicacionModel();
+   
+
+    // Eliminar publicaciones relacionadas
+    $publicacionModel->where('id_maquina', $id_maquina)->delete();
+
+    // Eliminar la máquina
+    if ($maquinaModel->delete($id_maquina)) {
+        return redirect()->to(base_url('/inicio'))->with('mensaje', 'Máquina y publicaciones eliminadas con éxito.');
+    } else {
+        return redirect()->back()->with('error', 'No se pudo eliminar la máquina.');
+    }
+        
     }
 }
