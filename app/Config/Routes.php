@@ -52,9 +52,7 @@ $routes->get('eliminar_publicacion/(:num)', 'Publicacion::eliminarPublicacion/$1
 
 //rutas para los trabajos del tecnico
 $routes->get('perfil_tecnico', 'Persona::perfilTecnico');
-
 $routes->get('trabajo/asignar/(:num)', 'Persona::asignarTrabajo/$1');
-
 $routes->get('/finalizar_servicio', 'Maquina::finalizar_servicio');
 
 

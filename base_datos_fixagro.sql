@@ -17,7 +17,7 @@ CREATE TABLE IF NOT EXISTS persona (
   direccion VARCHAR(45) NOT NULL,
   municipio VARCHAR(45) NOT NULL,
   departamento VARCHAR(45) NOT NULL,
-  telefono INT NOT NULL,
+  telefono varchar(20) NOT NULL,
   email VARCHAR(60) NOT NULL,
   contrasena VARCHAR(200) NOT NULL,
   estado ENUM("ACTIVO", "INACTIVO"),
@@ -106,3 +106,24 @@ mensaje VARCHAR(10000),
 fecha_envio DATETIME
 );
 
+CREATE TABLE `trabajos` (
+  id_trabajo int(50) NOT NULL,
+  id_tecnico int(50) NOT NULL,
+  id_maquina int(50) NOT NULL,
+  estado varchar(50) NOT NULL,
+  fecha_creacion datetime(6) NOT NULL,
+  fecha_finalizacion datetime(6) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+ALTER TABLE `trabajos`
+  ADD PRIMARY KEY (`id_trabajo`),
+  ADD KEY `id_tecnico` (`id_tecnico`),
+  ADD KEY `id_maquina` (`id_maquina`);
+
+  ALTER TABLE `trabajos`
+  MODIFY `id_trabajo` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+  ALTER TABLE `trabajos`
+  ADD CONSTRAINT `trabajos_ibfk_1` FOREIGN KEY (`id_tecnico`) REFERENCES `persona` (`id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `trabajos_ibfk_2` FOREIGN KEY (`id_maquina`) REFERENCES `maquinas` (`id_maquina`) ON UPDATE CASCADE;
+COMMIT;
