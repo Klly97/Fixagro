@@ -12,7 +12,7 @@ class Perfiles extends BaseController
         return view('perfil');
     }
 
-
+   
 }
 
 ?>
