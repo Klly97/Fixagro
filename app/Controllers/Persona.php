@@ -37,8 +37,8 @@ class Persona extends BaseController
             'avatar' => 'xaSASasasas'
         ]);
 
-        echo "DATOS GUARDADOS";
     }
+
     public function editarPerfil()
     {
         $personaModel = new PersonaModel();

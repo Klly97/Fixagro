@@ -180,7 +180,98 @@
             </div>
 
         </div>
+        <div class="modal fade" id="enviarOferta" tabindex="-1" aria-labelledby="modalEnviarMensaje" aria-hidden="true">
+        <div class="modal-dialog d-flex justify-content-center">
+            <div class="modal-content w-75">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalEnviarMensaje">¡Envia un mensaje al client efrenciendo tus servicios!</h5>
+                    <button type="button" data-mdb-button-init data-mdb-ripple-init class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <form>
+                        <!-- textarea input -->
+                        <div data-mdb-input-init class="form-outline mb-4">
+                            <textarea id="textarea4" rows="4" class="form-control"></textarea>
+                            <label class="form-label" for="textarea4">Mensaje</label>
+                        </div>
+                        <!-- Submit button -->
+                        <button type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-block">Enviar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
+    </div>
+    <!-- Modal -->
 </section>
 
+<?php echo $this->endSection(); ?>
+
+<?php echo $this->section('script'); ?>
+<script>
+    $(document).ready(iniciar);
+
+    function iniciar() {
+
+        console.log("llego");
+
+        //$("#agregarGastoTemp").on('click', abrirModal);
+        //$("#form_guardar").submit(formCrearGastoTemp);
+        $(".enviarOferta").click(abrirModalEnviarOferta);
+    }
+
+
+    function abrirModalEnviarOferta() {
+
+        $(".enviarOferta").click(function () {
+            $("#enviarOferta").modal('show');
+        });
+    }
+
+    function formCrearGastoTemp(e) {
+        e.preventDefault();
+        guardar_datos();
+    }
+
+    function guardar_datos() {
+
+        let form = $("#form_guardar").serialize();
+        $.ajax({
+                type: 'POST',
+                url: '<?php echo base_url('modulo-cierre/crear_gasto_temp'); ?>',
+                data: form,
+            })
+            .done(function(data) {
+
+                if (data == "ERROR##INSERT") {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Ocurrio un error:!',
+                        text: 'Parece que algunos datos tienen errores.'
+                    });
+                    console.log(data);
+                } else if (data == "OK##INSERT") {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Exitoso!',
+                        text: 'Registro Creado Correctamente.',
+                        type: "success"
+                    }).then(okay => {
+                        if (okay) {
+                            $("#magregarGastoTemp").modal('hide');
+                            location.reload();
+                        }
+                    });
+                }
+            })
+            .fail(function(data) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Ocurrio algo!',
+                    text: 'Ha ocurrido un error en el servidor, no se pudo registrar la información.'
+                })
+                console.log(data);
+            })
+    }
+</script>
 <?php echo $this->endSection(); ?>
