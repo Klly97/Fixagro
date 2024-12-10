@@ -36,6 +36,7 @@ if (!isset($id_usuario)) {
 
     <!-- Template Stylesheet -->
     <link href="<?php echo base_url('/public/css/style.css'); ?>" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 </head>
 
 <style>
@@ -87,9 +88,11 @@ if (!isset($id_usuario)) {
 
     <?php echo $this->include('plantilla/footer'); ?>
 
+
+    
+
     <?php echo $this->renderSection("script"); ?>
 
 </body>
-
 
 </html>

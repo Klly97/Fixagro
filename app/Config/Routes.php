@@ -47,4 +47,7 @@ $routes->post('/crear_publicacion', 'Publicacion::crear'); //para crear publicai
 $routes->get('/historial', 'Publicacion::historial');// Historial de las máquinas
 $routes->get('/finalizar_servicio', 'Maquina::finalizar_servicio');
 
-$routes->post('/ofertas', 'Ofertas::index'); //para crear publicaicion///buscar metodo en perfiles
+
+// Rutas para el funcionamiento del chat de ofertas de los tecnicos enviadas al cliente.
+$routes->get('/ofertas', 'Ofertas::index'); //para crear publicaicion///buscar metodo en perfiles
+$routes->get('/crear_oferta', 'Ofertas::crear'); //para crear publicaicion///buscar metodo en perfiles

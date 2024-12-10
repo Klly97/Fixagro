@@ -87,3 +87,22 @@ CREATE TABLE IF NOT EXISTS informe_tec (
   FOREIGN KEY (id_usuario_tec) REFERENCES persona (id)
 )ENGINE = InnoDB;
 
+CREATE TABLE ofertas (
+id INT AUTO_INCREMENT PRIMARY KEY,
+id_publicacion INT,
+id_tecnico INT,
+id_persona INT,
+fecha_oferta DATETIME,
+fec_actu DATETIME,
+estado ENUM("ENVIADA", "RECHAZA", "ACEPTADA")
+);
+
+CREATE TABLE chat_ofertas (
+id INT AUTO_INCREMENT PRIMARY KEY,
+id_publicacion INT,
+destinatario int(11),
+remitente int(11),
+mensaje VARCHAR(10000),
+fecha_envio DATETIME
+);
+
