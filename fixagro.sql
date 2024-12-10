@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 10-12-2024 a las 13:58:42
+-- Tiempo de generación: 10-12-2024 a las 18:38:11
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -24,17 +24,31 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `informe_tec`
+-- Estructura de tabla para la tabla `informes`
 --
 
-CREATE TABLE `informe_tec` (
+CREATE TABLE `informes` (
+  `id` int(11) NOT NULL,
   `id_publicacion` int(11) NOT NULL,
   `id_usuario_tec` int(11) NOT NULL,
-  `problema_tecnico` varchar(100) NOT NULL,
-  `descripcion` varchar(500) NOT NULL,
-  `fecha_Aceptacion` date NOT NULL,
-  `fechas_finalizacion` date NOT NULL
+  `tipo_maquina` varchar(255) NOT NULL,
+  `modelo` varchar(255) NOT NULL,
+  `marca` varchar(255) NOT NULL,
+  `descripcion_publicacion` text NOT NULL,
+  `problema_solucionado` text NOT NULL,
+  `descripcion_trabajo` text NOT NULL,
+  `nombre_dueño` varchar(255) NOT NULL,
+  `fecha_finalizacion` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `informes`
+--
+
+INSERT INTO `informes` (`id`, `id_publicacion`, `id_usuario_tec`, `tipo_maquina`, `modelo`, `marca`, `descripcion_publicacion`, `problema_solucionado`, `descripcion_trabajo`, `nombre_dueño`, `fecha_finalizacion`) VALUES
+(1, 4, 1, 'hvjgvgj', 'gvutfu', 'yccfy', 'yctycfcfcfh', 'se arreglo el jaswer', 'por ahi le movi a la chingada', 'John', '2024-12-10 11:45:09'),
+(8, 3, 1, 's', 'sds', 'fe', 's', 's', 'a', 'John', '2024-12-10 12:30:57'),
+(9, 6, 1, 'celular', 'apple', 'fe', 'no carga', 'h nhhn', 'bgubgbgu', 'John', '2024-12-10 12:33:13');
 
 -- --------------------------------------------------------
 
@@ -58,8 +72,36 @@ CREATE TABLE `maquinas` (
 --
 
 INSERT INTO `maquinas` (`id_maquina`, `tipo_maquina`, `modelo`, `marca`, `img`, `id_usuario`, `fecha_creacion`, `estado`) VALUES
-(2, 'fifi', 'ya fifi', 'abajo', 'foto_2.jpg', 2, '2024-12-10', 'ACTIVO'),
-(3, 'celular', 'one touch', 'alcatel', 'foto_3.png', 2, '2024-12-10', 'ACTIVO');
+(7, 's', 'sds', 'fe', 'foto_1.png', 2, '2024-12-10', 'ACTIVO'),
+(8, 'hvjgvgj', 'gvutfu', 'yccfy', 'foto_8.png', 2, '2024-12-10', 'ACTIVO'),
+(9, 'celular', 'apple', 'fe', 'foto_9.png', 2, '2024-12-10', 'ACTIVO');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `notificaciones`
+--
+
+CREATE TABLE `notificaciones` (
+  `id` int(50) NOT NULL,
+  `id_trabajo` int(50) NOT NULL,
+  `id_tecnico` int(50) NOT NULL,
+  `id_maquina` int(50) NOT NULL,
+  `mensaje` varchar(255) NOT NULL,
+  `estado` varchar(10) NOT NULL DEFAULT 'Pendiente',
+  `fecha_creacion` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `notificaciones`
+--
+
+INSERT INTO `notificaciones` (`id`, `id_trabajo`, `id_tecnico`, `id_maquina`, `mensaje`, `estado`, `fecha_creacion`) VALUES
+(7, 10, 1, 7, 'El técnico ha solicitado trabajar en tu máquina. ¿Aceptarás su oferta?', 'aceptada', '2024-12-10 10:23:37'),
+(8, 11, 1, 8, 'El técnico ha solicitado trabajar en tu máquina. ¿Aceptarás su oferta?', 'aceptada', '2024-12-10 10:40:32'),
+(9, 12, 1, 7, 'El técnico ha solicitado trabajar en tu máquina. ¿Aceptarás su oferta?', 'aceptada', '2024-12-10 12:02:11'),
+(10, 13, 1, 7, 'El técnico ha solicitado trabajar en tu máquina. ¿Aceptarás su oferta?', 'aceptada', '2024-12-10 12:23:04'),
+(11, 14, 1, 9, 'El técnico ha solicitado trabajar en tu máquina. ¿Aceptarás su oferta?', 'aceptada', '2024-12-10 12:32:40');
 
 -- --------------------------------------------------------
 
@@ -112,8 +154,10 @@ CREATE TABLE `publicaciones` (
 --
 
 INSERT INTO `publicaciones` (`id_publicacion`, `id_maquina`, `id_usuario`, `descripcion`, `fecha_creacion`, `fecha_modificacion`, `estado`) VALUES
-(1, 2, 2, 'no come :(', '2024-12-10 05:39:04', '0000-00-00 00:00:00', 'ACTIVO'),
-(2, 3, 2, 'c daño', '2024-12-10 05:54:28', '0000-00-00 00:00:00', 'ACTIVO');
+(3, 7, 2, 's', '2024-12-10 10:23:32', '0000-00-00 00:00:00', 'ACTIVO'),
+(4, 8, 2, 'yctycfcfcfh', '2024-12-10 10:40:11', '0000-00-00 00:00:00', 'ACTIVO'),
+(5, 7, 2, 's', '2024-12-10 12:22:52', '0000-00-00 00:00:00', 'ACTIVO'),
+(6, 9, 2, 'no carga', '2024-12-10 12:32:25', '0000-00-00 00:00:00', 'ACTIVO');
 
 -- --------------------------------------------------------
 
@@ -147,19 +191,22 @@ CREATE TABLE `trabajos` (
 --
 
 INSERT INTO `trabajos` (`id_trabajo`, `id_tecnico`, `id_maquina`, `estado`, `fecha_creacion`, `fecha_finalizacion`) VALUES
-(1, 1, 2, 'pendiente', '2024-12-10 06:49:48.000000', '0000-00-00 00:00:00.000000'),
-(2, 1, 3, 'pendiente', '2024-12-10 07:15:59.000000', '0000-00-00 00:00:00.000000');
+(10, 1, 7, 'completado', '2024-12-10 10:23:37.000000', '0000-00-00 00:00:00.000000'),
+(11, 1, 8, 'completado', '2024-12-10 10:40:32.000000', '0000-00-00 00:00:00.000000'),
+(12, 1, 7, 'completado', '2024-12-10 12:02:11.000000', '0000-00-00 00:00:00.000000'),
+(13, 1, 7, 'completado', '2024-12-10 12:23:04.000000', '0000-00-00 00:00:00.000000'),
+(14, 1, 9, 'completado', '2024-12-10 12:32:40.000000', '0000-00-00 00:00:00.000000');
 
 --
 -- Índices para tablas volcadas
 --
 
 --
--- Indices de la tabla `informe_tec`
+-- Indices de la tabla `informes`
 --
-ALTER TABLE `informe_tec`
-  ADD PRIMARY KEY (`id_publicacion`),
-  ADD KEY `id_usuario_tec` (`id_usuario_tec`);
+ALTER TABLE `informes`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `informes_ibfk_1` (`id_publicacion`);
 
 --
 -- Indices de la tabla `maquinas`
@@ -167,6 +214,15 @@ ALTER TABLE `informe_tec`
 ALTER TABLE `maquinas`
   ADD PRIMARY KEY (`id_maquina`),
   ADD KEY `id_usuario` (`id_usuario`);
+
+--
+-- Indices de la tabla `notificaciones`
+--
+ALTER TABLE `notificaciones`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_trabajo` (`id_trabajo`,`id_tecnico`,`id_maquina`),
+  ADD KEY `id_tecnico` (`id_tecnico`),
+  ADD KEY `id_maquina` (`id_maquina`);
 
 --
 -- Indices de la tabla `persona`
@@ -202,16 +258,22 @@ ALTER TABLE `trabajos`
 --
 
 --
--- AUTO_INCREMENT de la tabla `informe_tec`
+-- AUTO_INCREMENT de la tabla `informes`
 --
-ALTER TABLE `informe_tec`
-  MODIFY `id_publicacion` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `informes`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT de la tabla `maquinas`
 --
 ALTER TABLE `maquinas`
-  MODIFY `id_maquina` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_maquina` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- AUTO_INCREMENT de la tabla `notificaciones`
+--
+ALTER TABLE `notificaciones`
+  MODIFY `id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT de la tabla `persona`
@@ -223,30 +285,37 @@ ALTER TABLE `persona`
 -- AUTO_INCREMENT de la tabla `publicaciones`
 --
 ALTER TABLE `publicaciones`
-  MODIFY `id_publicacion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_publicacion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `trabajos`
 --
 ALTER TABLE `trabajos`
-  MODIFY `id_trabajo` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_trabajo` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- Restricciones para tablas volcadas
 --
 
 --
--- Filtros para la tabla `informe_tec`
+-- Filtros para la tabla `informes`
 --
-ALTER TABLE `informe_tec`
-  ADD CONSTRAINT `informe_tec_ibfk_1` FOREIGN KEY (`id_publicacion`) REFERENCES `publicaciones` (`id_publicacion`),
-  ADD CONSTRAINT `informe_tec_ibfk_2` FOREIGN KEY (`id_usuario_tec`) REFERENCES `persona` (`id`);
+ALTER TABLE `informes`
+  ADD CONSTRAINT `informes_ibfk_1` FOREIGN KEY (`id_publicacion`) REFERENCES `publicaciones` (`id_publicacion`) ON DELETE CASCADE;
 
 --
 -- Filtros para la tabla `maquinas`
 --
 ALTER TABLE `maquinas`
   ADD CONSTRAINT `maquinas_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `persona` (`id`);
+
+--
+-- Filtros para la tabla `notificaciones`
+--
+ALTER TABLE `notificaciones`
+  ADD CONSTRAINT `notificaciones_ibfk_1` FOREIGN KEY (`id_trabajo`) REFERENCES `trabajos` (`id_trabajo`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `notificaciones_ibfk_2` FOREIGN KEY (`id_tecnico`) REFERENCES `persona` (`id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `notificaciones_ibfk_3` FOREIGN KEY (`id_maquina`) REFERENCES `maquinas` (`id_maquina`) ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `publicaciones`
