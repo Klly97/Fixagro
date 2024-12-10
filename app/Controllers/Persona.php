@@ -124,9 +124,9 @@ class Persona extends BaseController
         $personaModelo = new PersonaModel();
 
 
-        if ($personaModelo->delete($usuarioId)) {
+        if ($personaModelo->update(['id',$usuarioId], ['estado' => 'INACTIVO'])) {
             session()->destroy();
-            return redirect()->to('/login')->with('mensaje', 'exito en eliminar');
+            return redirect()->route('/')->with('mensaje', 'exito en eliminar');
         } else {
             return redirect()->back()->with('error', 'Error al eliminar la persona');
         }

@@ -21,7 +21,7 @@
                                 <i class="far fa-star text-warning"></i>
                             </div>
                             <p class="text-muted mb-0">Ubicación</p>
-                            <p class="text-muted mb-4"><?php echo $per['municipio'] . ', ' . $per['departamento']?></p>
+                            <p class="text-muted mb-4"><?php echo $per['municipio'] . ', ' . $per['departamento'] ?></p>
                         </div>
                     <?php endforeach ?>
                     </div>

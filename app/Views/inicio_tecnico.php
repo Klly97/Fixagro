@@ -60,24 +60,24 @@
         <div class="row d-flex justify-content-center">
             <!-- Sidebar -->
             <div class="col-md-3 profile-sidebar">
-            <?php foreach ($persona as $per): ?>
-                <div class="profile-info">
-                    <img src="https://via.placeholder.com/100" alt="User Profile Picture">
-                    <h5 class="my-2"><?php echo $per['nombre'] . ' ' . $per['apellido'] ?></h5>
-                    <div class="rating mb-1">
-                        <i class="fas fa-star text-warning"></i>
-                        <i class="fas fa-star text-warning"></i>
-                        <i class="fas fa-star text-warning"></i>
-                        <i class="far fa-star text-warning"></i>
-                        <i class="far fa-star text-warning"></i>
+                <?php foreach ($persona as $per): ?>
+                    <div class="profile-info">
+                        <img src="https://via.placeholder.com/100" alt="User Profile Picture">
+                        <h5 class="my-2"><?php echo $per['nombre'] . ' ' . $per['apellido'] ?></h5>
+                        <div class="rating mb-1">
+                            <i class="fas fa-star text-warning"></i>
+                            <i class="fas fa-star text-warning"></i>
+                            <i class="fas fa-star text-warning"></i>
+                            <i class="far fa-star text-warning"></i>
+                            <i class="far fa-star text-warning"></i>
+                        </div>
+                        <div class="mt-3">
+                            <p class="text-muted mb-0">Ubicación</p>
+                            <p class="text-muted mb-4"><?php echo $per['municipio'] . ', ' . $per['departamento'] ?></p>
+                            <a href="perfil_tecnico" class="btn btn-primary btn-sm">Mis Trabajos</a>
+                        </div>
+                        <?php endforeach ?>
                     </div>
-                    <div class="mt-3">
-                        <p class="text-muted mb-0">Ubicación</p>
-                        <p class="text-muted mb-4"><?php echo $per['municipio'] . ', ' . $per['departamento']?></p>
-                        <a href="perfil_tecnico" class="btn btn-primary btn-sm">Mis Trabajos</a>
-                    </div>
-                </div>
-                <?php endforeach ?>
             </div>
 
             <!-- Main Content -->
@@ -183,26 +183,26 @@
 
         </div>
         <div class="modal fade" id="enviarOferta" tabindex="-1" aria-labelledby="modalEnviarMensaje" aria-hidden="true">
-        <div class="modal-dialog d-flex justify-content-center">
-            <div class="modal-content w-75">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="modalEnviarMensaje">¡Envia un mensaje al client efrenciendo tus servicios!</h5>
-                    <button type="button" data-mdb-button-init data-mdb-ripple-init class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body p-4">
-                    <form>
-                        <!-- textarea input -->
-                        <div data-mdb-input-init class="form-outline mb-4">
-                            <textarea id="textarea4" rows="4" class="form-control"></textarea>
-                            <label class="form-label" for="textarea4">Mensaje</label>
-                        </div>
-                        <!-- Submit button -->
-                        <button type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-block">Enviar</button>
-                    </form>
+            <div class="modal-dialog d-flex justify-content-center">
+                <div class="modal-content w-75">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalEnviarMensaje">¡Envia un mensaje al client efrenciendo tus servicios!</h5>
+                        <button type="button" data-mdb-button-init data-mdb-ripple-init class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body p-4">
+                        <form>
+                            <!-- textarea input -->
+                            <div data-mdb-input-init class="form-outline mb-4">
+                                <textarea id="textarea4" rows="4" class="form-control"></textarea>
+                                <label class="form-label" for="textarea4">Mensaje</label>
+                            </div>
+                            <!-- Submit button -->
+                            <button type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-block">Enviar</button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
     </div>
     <!-- Modal -->
 </section>
@@ -225,7 +225,7 @@
 
     function abrirModalEnviarOferta() {
 
-        $(".enviarOferta").click(function () {
+        $(".enviarOferta").click(function() {
             $("#enviarOferta").modal('show');
         });
     }

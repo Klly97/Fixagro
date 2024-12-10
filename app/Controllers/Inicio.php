@@ -38,6 +38,8 @@ class Inicio extends BaseController
                 $publicaciones = new Publicacion();
                 $datos['publicaciones'] = $publicaciones->getPublicacionesTecnicos();
                 
+                $persona = new Persona();
+                $datos['persona'] = $persona->cosultarPersona(session('id'));
                 return view('inicio_tecnico', $datos);
             }
         }else{
