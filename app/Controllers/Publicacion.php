@@ -135,4 +135,16 @@ class Publicacion extends BaseController
         return $publicaciones;
     }
 
+    public function eliminarPublicacion($id_publicacion)
+{
+    $publicacionModel = new PublicacionModel();
+
+    if ($publicacionModel->delete($id_publicacion)) {
+        return redirect()->back()->with('mensaje', 'Publicación eliminada exitosamente');
+    } else {
+        return redirect()->back()->with('error', 'Error al eliminar la publicación');
+    }
+}
+
+
 }

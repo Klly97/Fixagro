@@ -5,7 +5,7 @@ namespace App\Controllers;
 use App\Models\PersonaModel;
 use App\Models\PublicacionModel;
 use App\Models\MaquinaModel;
-
+use App\Models\TrabajosModel;
 
 class Persona extends BaseController
 {
@@ -162,41 +162,120 @@ class Persona extends BaseController
     }
 
     public function detalle($id)
-{
-    $personaModel = new PersonaModel();
-    $publicacionModel = new PublicacionModel();
-    $maquinaModel = new MaquinaModel(); // Cargar el modelo de máquinas
-    
-    // Obtener la información de la persona por su ID
-    $persona = $personaModel->find($id);
+    {
+        $personaModel = new PersonaModel();
+        $publicacionModel = new PublicacionModel();
+        $maquinaModel = new MaquinaModel(); // Cargar el modelo de máquinas
 
-    // Si no se encuentra la persona, mostrar error
-    if (!$persona) {
-        throw new \CodeIgniter\Exceptions\PageNotFoundException('Persona no encontrada');
-    }
+        // Obtener la información de la persona por su ID
+        $persona = $personaModel->find($id);
 
-    // Obtener las publicaciones del usuario
-    $publicaciones = $publicacionModel->where('id_usuario', $id)->findAll();
+        // Si no se encuentra la persona, mostrar error
+        if (!$persona) {
+            throw new \CodeIgniter\Exceptions\PageNotFoundException('Persona no encontrada');
+        }
 
-    // Obtener la máquina asociada a cada publicación
-    foreach ($publicaciones as &$publicacion) {
-        // Obtener la máquina relacionada con la publicación
-        $maquina = $maquinaModel->find($publicacion['id_maquina']);
-        
-        // Agregar la imagen de la máquina a los datos de la publicación
-        if ($maquina) {
-            $publicacion['maquina_img'] = $maquina['img'];
-        } else {
-            $publicacion['maquina_img'] = null; // En caso de que no haya una máquina asociada
+        // Obtener las publicaciones del usuario
+        $publicaciones = $publicacionModel->where('id_usuario', $id)->findAll();
+
+        // Obtener la máquina asociada a cada publicación
+        foreach ($publicaciones as &$publicacion) {
+            // Obtener la máquina relacionada con la publicación
+            $maquina = $maquinaModel->find($publicacion['id_maquina']);
+
+            // Agregar la imagen de la máquina a los datos de la publicación
+            if ($maquina) {
+                $publicacion['maquina_img'] = $maquina['img'];
+            } else {
+                $publicacion['maquina_img'] = null; // En caso de que no haya una máquina asociada
+            }
+        }
+
+        // Verificar el tipo de persona y cargar la vista correspondiente
+        if ($persona['tipo_persona'] === 'TECNICO') {
+            return view('tecnico_detalle', ['persona' => $persona, 'publicaciones' => $publicaciones]);
+        } elseif ($persona['tipo_persona'] === 'CLIENTE') {
+            return view('usuario_detalle', ['persona' => $persona, 'publicaciones' => $publicaciones]);
         }
     }
 
-    // Verificar el tipo de persona y cargar la vista correspondiente
-    if ($persona['tipo_persona'] === 'TECNICO') {
-        return view('tecnico_detalle', ['persona' => $persona, 'publicaciones' => $publicaciones]);
-    } elseif ($persona['tipo_persona'] === 'CLIENTE') {
-        return view('usuario_detalle', ['persona' => $persona, 'publicaciones' => $publicaciones]);
-    }
-}
 
+
+
+
+
+    public function asignarTrabajo($idPublicacion)
+    {
+        // Aquí puedes obtener el ID del técnico autenticado (por ejemplo, desde la sesión)
+        $idTecnico = session()->get('id');
+
+        // Crear instancia del modelo para Publicación
+        $publicacionModel = new PublicacionModel();
+
+        // Obtener los datos de la publicación usando el ID
+        $publicacion = $publicacionModel->find($idPublicacion);  // Suponiendo que 'find' devuelve la publicación por su ID
+
+        // Verificar si se obtuvo la publicación
+        if ($publicacion) {
+            // Obtener la id_maquina de la publicación
+            $idMaquina = $publicacion['id_maquina']; // Suponiendo que id_maquina es el campo que almacena el ID de la máquina
+
+            // Crear instancia del modelo para Trabajos
+            $trabajoModel = new TrabajosModel();
+
+            // Datos a insertar en la tabla trabajos
+            $data = [
+                'id_tecnico' => $idTecnico,
+                'id_maquina' => $idMaquina,  // Ahora usamos la id_maquina obtenida de la publicación
+                'estado' => 'pendiente', // Estado inicial
+                'fecha_creacion' => date('Y-m-d H:i:s'),
+            ];
+
+            // Insertar el trabajo
+            if ($trabajoModel->insert($data)) {
+                return redirect()->back()->with('success', 'Trabajo asignado exitosamente.');
+            } else {
+                // Mostrar errores
+                $errors = $trabajoModel->errors();
+                var_dump($errors);
+                exit();
+            }
+        } else {
+            return redirect()->back()->with('error', 'Publicación no encontrada.');
+        }
+    }
+
+
+    public function perfilTecnico()
+    {
+        $trabajoModel = new TrabajosModel();
+        $maquinaModel = new MaquinaModel();  // Cargar el modelo de Maquina
+
+        // Obtener el id_tecnico desde la sesión
+        $idTecnico = session()->get('id');
+
+        // Filtrar los trabajos para este técnico
+        $trabajos = $trabajoModel->where('id_tecnico', $idTecnico)->findAll();
+
+        // Crear un arreglo para almacenar la información completa de las máquinas
+        $trabajosConMaquinas = [];
+
+        // Recorrer los trabajos y obtener la información de la máquina asociada
+        foreach ($trabajos as $trabajo) {
+            $idMaquina = $trabajo['id_maquina'];
+
+            // Obtener la información de la máquina
+            $maquina = $maquinaModel->where('id_maquina', $idMaquina)->first();
+
+            // Agregar la información de la máquina al trabajo
+            $trabajo['maquina'] = $maquina;
+
+            // Almacenar el trabajo con la información de la máquina
+            $trabajosConMaquinas[] = $trabajo;
+        }
+
+        // Pasar los trabajos con las máquinas a la vista
+        
+        return view('servicio_mantenimiento', ['trabajos' => $trabajosConMaquinas]);
+    }
 }

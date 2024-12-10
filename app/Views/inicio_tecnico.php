@@ -64,16 +64,16 @@
                     <img src="https://via.placeholder.com/100" alt="User Profile Picture">
                     <h5 class="my-2"><?php echo session('nombre') . ' ' . session('apellido') ?></h5>
                     <div class="rating mb-1">
-                            <i class="fas fa-star text-warning"></i>
-                            <i class="fas fa-star text-warning"></i>
-                            <i class="fas fa-star text-warning"></i>
-                            <i class="far fa-star text-warning"></i>
-                            <i class="far fa-star text-warning"></i>
-                        </div>
+                        <i class="fas fa-star text-warning"></i>
+                        <i class="fas fa-star text-warning"></i>
+                        <i class="fas fa-star text-warning"></i>
+                        <i class="far fa-star text-warning"></i>
+                        <i class="far fa-star text-warning"></i>
+                    </div>
                     <div class="mt-3">
-                    <p class="text-muted mb-0">Ubicación</p>
-                    <p class="text-muted mb-4"><?php echo session('municipio') . ', ' . session('departamento') ?></p>
-                        <a href="#" class="btn btn-primary btn-sm">Mis Trabajos</a>
+                        <p class="text-muted mb-0">Ubicación</p>
+                        <p class="text-muted mb-4"><?php echo session('municipio') . ', ' . session('departamento') ?></p>
+                        <a href="perfil_tecnico" class="btn btn-primary btn-sm">Mis Trabajos</a>
                     </div>
                 </div>
             </div>
@@ -89,7 +89,7 @@
                                 <div class="d-flex mb-3">
                                     <a href="">
                                         <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTrODtSNaRcRlFgK_vW9k3sgYhtHnyzDhtang&s" class="border rounded-circle me-2"
-                                            alt="Avatar" style="height: 40px" />                                    </a>
+                                            alt="Avatar" style="height: 40px" /> </a>
                                     <div>
                                         <a href="" class="text-dark mb-0">
                                             <strong><?php echo $publicacion['nombre_persona']; ?></strong>
@@ -166,15 +166,10 @@
 
                                 <!-- Buttons -->
                                 <div class="d-flex justify-content-between text-center border-top border-bottom mb-4">
-                                    <button type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-link btn-lg" data-mdb-ripple-color="dark">
-                                        <i class="fas fa-share me-2"></i>Enviar Oferta
-                                    </button>
-                                    <button type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-link btn-lg" data-mdb-ripple-color="dark">
-                                        <i class="fas fa-thumbs-up me-2"></i>Enviar Mensaje
-                                    </button>
-                                    <button type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-link btn-lg" data-mdb-ripple-color="dark">
-                                        <i class="fas fa-comment-alt me-2"></i>Guardar
-                                    </button>
+                                    <a href="<?= base_url('trabajo/asignar/' . $publicacion['id_publicacion']); ?>" class="btn btn-primary">
+                                        Asignar Trabajo
+                                    </a>
+
 
                                 </div>
                             </div>

@@ -34,6 +34,7 @@ class Inicio extends BaseController
 
                 $publicaciones = new Publicacion();
                 $datos['publicaciones'] = $publicaciones->getPublicacionesTecnicos();
+                
                 return view('inicio_tecnico', $datos);
             }
         }else{
