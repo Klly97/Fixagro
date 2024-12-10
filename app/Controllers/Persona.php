@@ -106,6 +106,7 @@ class Persona extends BaseController
             // Si la contraseña actual es correcta, actualizar la nueva contraseña
             $newHashedPassword = md5($newPassword); // O usa password_hash() para mayor seguridad
             $personaModel->update($usuario['id'], ['contrasena' => $newHashedPassword]);
+            session()->destroy();
             return redirect()->to('/login')->with('mensaje', 'Contraseña actualizada correctamente');
         } else {
             return redirect()->to('/perfil')->with('error', 'Contraseña actual incorrecta');
@@ -120,6 +121,7 @@ class Persona extends BaseController
 
 
         if ($personaModelo->delete($usuarioId)) {
+            session()->destroy();
             return redirect()->to('/login')->with('mensaje', 'exito en eliminar');
         } else {
             return redirect()->back()->with('error', 'Error al eliminar la persona');
