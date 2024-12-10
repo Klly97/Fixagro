@@ -8,8 +8,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
-<body class="d-flex justify-content-center align-items-center"
-    style="background-image: url('<?php echo base_url('/public/img/seleccionInc.jpg'); ?>'); background-position: center;">
+<body class="d-flex justify-content-center align-items-center" style="background-image: url('<?php echo base_url('/public/img/seleccionInc.jpg'); ?>'); background-position: center;">
     <div class="container vh-100 mt-5">
         <div class="row">
             <div class="col-my-3 p-4 h-100   px-md-5">
@@ -17,197 +16,140 @@
                     <div class="row mb-3">
                         <div class="col">
                             <label for="nombre" class="form-label text-light">Nombre</label>
-                            <input type="text" class="form-control text-capitalize" id="nombre" placeholder="Nombre"
-                                name="nombre">
+                            <input type="text" class="form-control text-capitalize" id="nombre" placeholder="Nombre" name="nombre">
                         </div>
                         <div class="col">
                             <label for="apellido" class="form-label text-light">Apellido</label>
-                            <input type="text" class="form-control text-capitalize" id="apellido" placeholder="Apellido"
-                                name="apellido">
+                            <input type="text" class="form-control text-capitalize" id="apellido" placeholder="Apellido" name="apellido">
                         </div>
                     </div>
 
                     <div class="row mb-3">
                         <div class="col">
                             <label for="telefono" class="form-label text-light">Teléfono</label>
-                            <input type="text" class="form-control text-capitalize" id="telefono" placeholder="Teléfono"
-                                name="telefono">
+                            <input type="text" class="form-control text-capitalize" id="telefono" placeholder="Teléfono" name="telefono">
                         </div>
                         <div class="col">
                             <label for="correo" class="form-label text-light">Correo Electrónico</label>
-                            <input type="email" class="form-control" id="correo" placeholder="Correo Electrónico"
-                                name="correo">
+                            <input type="email" class="form-control" id="correo" placeholder="Correo Electrónico" name="correo">
                         </div>
                     </div>
 
                     <div class="row mb-3">
                         <div class="col">
                             <label for="departamento" class="form-label text-light">Departamento</label>
-                            <input type="text" class="form-control text-capitalize" id="departamento"
-                                placeholder="Departamento" name="departamento">
+                            <input type="text" class="form-control text-capitalize" id="departamento" placeholder="Departamento" name="departamento">
                         </div>
                         <div class="col">
                             <label for="municipio" class="form-label text-light">Municipio</label>
-                            <input type="text" class="form-control text-capitalize" id="municipio"
-                                placeholder="Municipio" name="municipio">
+                            <input type="text" class="form-control text-capitalize" id="municipio" placeholder="Municipio" name="municipio">
                         </div>
                     </div>
                     <?php if ($opcion == "cliente") { ?>
                         <div class="row mb-3">
-                            
+                            <div class="col-6">
+                                <label for="direccion" class="form-label text-light">Dirección</label>
+                                <input type="text" class="form-control text-capitalize" id="direccion" placeholder="Dirección" name="direccion">
+                            </div>
                             <div class="col">
                                 <label for="contrasena" class="form-label text-light">Contraseña</label>
-                                <input type="password" class="form-control text-capitalize" id="contrasena"
-                                  pattern="^.{5,10}$" title="La direccion debe tener mas de 8 y menos de 15 caracteres "  placeholder="Contraseña" name="contrasena">
+                                <input type="password" class="form-control text-capitalize" id="contrasena" placeholder="Contraseña" name="contrasena">
                             </div>
                         </div>
                         <div class="row mb-3">
                             <div class="col-6">
                                 <label for="confirmar-contrasena" class="form-label text-light">Confirmar Contraseña</label>
-                                <input type="password" class="form-control text-capitalize"
-                                    id="confirmar-contrasena-confirma" placeholder="Confirmar Contraseña">
+                                <input type="password" class="form-control text-capitalize" id="confirmar-contrasena-confirma" placeholder="Confirmar Contraseña">
                             </div>
                         </div>
-                    <?php }
-                    ; ?>
+                    <?php }; ?>
 
                     <?php if ($opcion == "tecnico") { ?>
                         <div class="row mb-3">
                             <div class="col">
                                 <label for="contrasena" class="form-label text-light">¿Cuentas con Taller Fisico?</label>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id="marcaTallerFisico"
-                                        placeholder="Taller Fisico" name="tmarcaTallerFisicoallerFisico">
+                                    <input class="form-check-input" type="checkbox" value="" id="marcaTallerFisico" placeholder="Taller Fisico" name="tmarcaTallerFisicoallerFisico">
                                 </div>
                             </div>
                             <div class="col">
                                 <label for="confirmar-contrasena" class="form-label text-light">Dirección del Taller</label>
-                                <input type="text" class="form-control text-capitalize" id="direccion_taller"
-                                    placeholder="Ingresa dirección" name="direccion">
+                                <input type="text" class="form-control text-capitalize" id="direccion_taller" placeholder="Ingresa dirección" name="direccion">
                             </div>
                         </div>
                         <div class="row mb-3">
                             <div class="col">
                                 <label for="contrasena" class="form-label text-light">Contraseña</label>
-                                <input type="password" class="form-control" id="contrasena" placeholder="Contraseña"
-                                    name="contrasena">
+                                <input type="password" class="form-control" id="contrasena" placeholder="Contraseña" name="contrasena">
                             </div>
                             <div class="col-6">
                                 <label for="confirmar-contrasena" class="form-label text-light">Confirmar Contraseña</label>
-                                <input type="password" class="form-control" id="confirmar-contrasena"
-                                    placeholder="Confirmar Contraseña" name="confirmar-contrasena">
+                                <input type="password" class="form-control" id="confirmar-contrasena" placeholder="Confirmar Contraseña" name="confirmar-contrasena">
                             </div>
                         </div>
-                    <?php }
-                    ; ?>
+                    <?php }; ?>
                     <div class="row mb-3 d-flex justify-content-center">
-                        <button type="submit" class="btn btn-success text-light btn-lg m-3 "
-                            style="width: 45%;">Registrarse</button>
+                        <button type="submit" class="btn btn-success text-light btn-lg m-3 " style="width: 45%;">Registrarse</button>
                     </div>
-                    <input type="hidden" class="form-control" id="tipo_persona" value="<?php echo $opcion; ?>"
-                        name="tipo_persona">
+                    <input type="hidden" class="form-control" id="tipo_persona" value="<?php echo $opcion ;?>" name="tipo_persona">
                 </form>
                 <div class="text-center mt-5">
-                    <a class="text-light h5" href="#">¿Ya tienes una cuenta?</a> | <a class="text-light h5"
-                        href="<?php echo base_url('/login'); ?>">Inicia Sesión</a>
+                    <a class="text-light h5" href="#">¿Ya tienes una cuenta?</a> | <a class="text-light h5" href="<?php echo base_url('/login'); ?>">Inicia Sesión</a>
                 </div>
             </div>
         </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://code.jquery.com/jquery-2.2.4.min.js"
-        integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script>
         $(document).ready(iniciar);
 
         function iniciar() {
-            // Verificamos si el formulario existe y está siendo capturado correctamente
-            console.log("Formulario cargado");
 
             $("#form_guardar").submit(formRegistrar);
         }
 
         function formRegistrar(e) {
-            e.preventDefault(); // Evitamos que el formulario se envíe antes de la validación
-
-            console.log("Formulario enviado");
-
-            // Verificamos que los elementos existen antes de acceder a ellos
-            const nombre = $("#nombre").val() || "";
-            const telefono = $("#telefono").val() || "";
-            const contrasena = $("#contrasena").val() || "";
-            const direccion = $("#direccion").val() || "";
-
-            // Validaciones
-            if (nombre.length < 3) {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Error',
-                    text: 'El nombre debe tener al menos 3 caracteres.'
-                });
-                return;
-            }
-
-            if (telefono.length < 7 || telefono.length > 15) {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Error',
-                    text: 'El teléfono debe tener entre 7 y 15 caracteres.'
-                });
-                return;
-            }
-
-            if (contrasena.length <= 4 || contrasena.length >= 8) {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Error',
-                    text: 'La contraseña debe tener entre 5 y 7 caracteres.'
-                });
-                return;
-            }
-
-           
-
-            // Si las validaciones son correctas, guardar los datos
+            e.preventDefault();
             guardar_datos();
         }
 
-
         function guardar_datos() {
+
             let formulario = $("#form_guardar").serialize();
 
             $.ajax({
-                type: 'POST',
-                url: '<?php echo base_url('../crear_persona'); ?>',
-                data: formulario,
-            })
-                .done(function (data) {
+                    type: 'POST',
+                    url: '<?php echo base_url('../crear_persona'); ?>',
+                    data: formulario,
+                })
+                .done(function(data) {
+
                     Swal.fire({
                         icon: 'success',
                         title: 'Exitoso!',
-                        text: 'Se ha registrado Exitosamente' + data,
+                        text: 'Se ha registrado Exitosamente'
+                        + data,
                         type: "success"
                     }).then(okay => {
                         if (okay) {
-                            window.location.href = '<?php echo base_url('/login'); ?>';
+                            window.location.href = '<?php echo base_url('/login'); ?>'; 
                         }
                     });
                 })
-                .fail(function (data) {
+                .fail(function(data) {
                     Swal.fire({
                         icon: 'error',
                         title: 'Ocurrio algo!',
                         text: 'Ha ocurrido un error en el servidor, no se pudo registrar la información.'
                     })
                     console.log(data);
-                });
+                })
         }
     </script>
-
-
 </body>
 
 </html>
