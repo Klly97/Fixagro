@@ -4,7 +4,7 @@ namespace App\Controllers;
 
 use App\Models\MaquinaModel;
 use App\Models\PublicacionModel;
-
+use App\Models\TrabajosModel;
 class Maquina extends BaseController
 {
 
@@ -95,9 +95,59 @@ class Maquina extends BaseController
         $consulta = $maquinaModel->where(["id_usuario" => $id_usuario, "id_maquina" => $id_maquina])->findAll();
         return $consulta;
     }
-    public function finalizar_servicio()
+
+    public function completarTrabajo($id_trabajo)
+{
+    $trabajoModel = new TrabajosModel();
+    $maquinaModel = new MaquinaModel();
+    $publicacionModel = new PublicacionModel(); // Cargar el modelo de Publicación
+
+    // Obtener el trabajo
+    $trabajo = $trabajoModel->find($id_trabajo);
+
+    if (!$trabajo) {
+        return redirect()->back()->with('error', 'Trabajo no encontrado.');
+    }
+
+    // Obtener la máquina asociada al trabajo
+    $maquina = $maquinaModel->find($trabajo['id_maquina']);
+
+    if (!$maquina) {
+        return redirect()->back()->with('error', 'Máquina no encontrada.');
+    }
+
+    // Obtener la publicación asociada a la máquina
+    $publicacion = $publicacionModel->where('id_maquina', $trabajo['id_maquina'])->first();
+
+    if (!$publicacion) {
+        return redirect()->back()->with('error', 'Publicación no encontrada.');
+    }
+
+    // Pasar los datos a la vista
+    return view('finalizar_servicio', [
+        'trabajo' => $trabajo,
+        'maquina' => $maquina,
+        'publicacion' => $publicacion
+    ]);
+}
+
+
+    public function guardarSolucion($id_trabajo)
     {
-        return view('finalizar_servicio');
+        $trabajoModel = new TrabajosModel();
+
+        // Obtener la información del formulario
+        $problemaSolucionado = $this->request->getPost('problema_solucionado');
+        $descripcion = $this->request->getPost('descripcion');
+
+        // Actualizar el estado del trabajo
+        $trabajoModel->update($id_trabajo, [
+            'estado' => 'completado',
+            'problema_solucionado' => $problemaSolucionado,
+            'descripcion' => $descripcion,
+        ]);
+
+        return redirect()->to('/trabajos')->with('success', 'Trabajo completado con éxito.');
     }
 
     public function actualizar()
@@ -162,21 +212,19 @@ class Maquina extends BaseController
 }
 
 
-    public function eliminar($id_maquina)
-    {
-        $maquinaModel = new MaquinaModel();
-        $publicacionModel = new PublicacionModel();
-   
+public function eliminar($id_maquina)
+{
+    $db = db_connect();
 
-    // Eliminar publicaciones relacionadas
-    $publicacionModel->where('id_maquina', $id_maquina)->delete();
+    // Eliminar las notificaciones relacionadas primero
+    $db->table('notificaciones')->where('id_maquina', $id_maquina)->delete();
+    // Eliminar los trabajos relacionados
+    $db->table('trabajos')->where('id_maquina', $id_maquina)->delete();
 
-    // Eliminar la máquina
-    if ($maquinaModel->delete($id_maquina)) {
-        return redirect()->to(base_url('/inicio'))->with('mensaje', 'Máquina y publicaciones eliminadas con éxito.');
-    } else {
-        return redirect()->back()->with('error', 'No se pudo eliminar la máquina.');
-    }
-        
-    }
+    // Luego eliminar la máquina
+    $db->table('maquinas')->where('id_maquina', $id_maquina)->delete();
+
+    return redirect()->to(base_url('/inicio'))->with('mensaje', 'Máquina y publicaciones eliminadas con éxito.');
+}
+
 }

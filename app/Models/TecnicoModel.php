@@ -4,7 +4,7 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class PersonaModel extends Model
+class TecnicoModel extends Model
 {
     protected $table      = 'tecnico'; // Nombre de tabla
     protected $primaryKey = 'id'; // Llave primaria

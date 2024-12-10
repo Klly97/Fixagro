@@ -41,14 +41,21 @@
                                             <img src="<?php echo base_url('./public/img/maquina/') . $trabajo['maquina']['img'] ?>" alt="Machine 1"
                                                 class="rounded-3" style="object-fit: cover; width: 100%; height: 100%;">
                                             <div class="card-body">
-                                                <h5 class="card-title"><strong>Maquina:</strong><?= $trabajo['maquina']['tipo_maquina']; ?></h5>
-                                                <p><strong>Estado:</strong><?= $trabajo['estado']; ?></p>
-                                                <p class="card-title"><strong>Modelo:</strong><?= $trabajo['maquina']['modelo']; ?></p>
-                                                <p class="card-title"><strong>Marca:</strong><?= $trabajo['maquina']['marca']; ?></p>
+                                                <h5 class="card-title"><strong>Maquina:</strong> <?= $trabajo['maquina']['tipo_maquina']; ?></h5>
+                                                <p><strong>Estado:</strong> <?= ucfirst($trabajo['estado']); ?></p>
+                                                <p class="card-title"><strong>Modelo:</strong> <?= $trabajo['maquina']['modelo']; ?></p>
+                                                <p class="card-title"><strong>Marca:</strong> <?= $trabajo['maquina']['marca']; ?></p>
 
-                                                <!-- Agregar un botón para realizar una acción (Ej. Marcar como completado) -->
-                                                <a href="<?= base_url('trabajo/completar/'.$trabajo['id_trabajo']); ?>" class="btn btn-success">Completar Trabajo</a>
-                                                <a href="<?= base_url('trabajo/completar/'.$trabajo['id_trabajo']); ?>" class="btn btn-danger">Cancelar Trabajo</a>
+                                                <!-- Botón de acción según estado -->
+                                                <div class="d-grid gap-2">
+                                                    <?php if (!$trabajo['puede_completar']): ?>
+                                                        <button class="btn btn-secondary" disabled>Completar Trabajo</button>
+                                                    <?php else: ?>
+                                                        <a href="<?= base_url('trabajo/completar/' . $trabajo['id_trabajo']); ?>" class="btn btn-success">Completar Trabajo</a>
+                                                    <?php endif; ?>
+
+                                                    <a href="<?= base_url('trabajo/cancelar/' . $trabajo['id_trabajo']); ?>" class="btn btn-danger">Cancelar Trabajo</a>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -59,7 +66,7 @@
                         </div>
                     </div>
 
-                    <button type="button" class="btn btn-success me-2 mt-2">Historial</button>
+                    <a href="<?= base_url('trabajo/historial'); ?>" class="btn btn-success me-2 mt-2">Historial</a>
                 </div>
             </div>
         </div>

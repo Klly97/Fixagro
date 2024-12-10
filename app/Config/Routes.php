@@ -36,6 +36,11 @@ $routes->post('/perfil/eliminarPersona', 'Persona::eliminarPersona');//para elim
 $routes->post('/buscar', 'Persona::buscarPersona');//Para buscar perfiles por su nombre
 $routes->get('persona/detalle/(:num)', 'Persona::detalle/$1');//abrir perfil de la persona
 $routes->get('/tecnico', 'Persona::tecnico');
+$routes->get('notificaciones', 'Persona::mostrarNotificaciones');
+$routes->get('notificaciones/aceptar/(:num)', 'Persona::aceptar/$1');
+$routes->get('notificaciones/rechazar/(:num)', 'Persona::rechazar/$1');
+$routes->get('notificacionesTecnico', 'Persona::notificacionesTecnico');
+
 
 // Rutas para gestión de máquinas
 $routes->get('/publicacion_maquina/(:num)', 'Maquina::maquina/$1');// Publicaciones relacionadas con el historial de máquinas
@@ -55,6 +60,9 @@ $routes->get('perfil_tecnico', 'Persona::perfilTecnico');
 
 $routes->get('trabajo/asignar/(:num)', 'Persona::asignarTrabajo/$1');
 
-$routes->get('/finalizar_servicio', 'Maquina::finalizar_servicio');
+$routes->get('trabajo/completar/(:num)', 'maquina::completarTrabajo/$1');
+$routes->post('trabajo/guardarSolucion/(:num)', 'maquina::guardarSolucion/$1');
+
+
 
 $routes->post('/ofertas', 'Ofertas::index'); //para crear publicaicion///buscar metodo en perfiles

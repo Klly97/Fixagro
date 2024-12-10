@@ -2,7 +2,7 @@
 <nav class="navbar navbar-expand-lg navbar-#ffffff bg-light">
     <div class="container-fluid">
         <!-- Brand / Logo -->
-        <a class="navbar-brand d-flex align-items-center col-lg-3" href="<?php echo base_url('/inicio')?>">
+        <a class="navbar-brand d-flex align-items-center col-lg-3" href="<?php echo base_url('/inicio') ?>">
             <div id="video-container" class="w-100" style="height: 7vh;">
                 <video autoplay loop muted style="width: 100%; height: 100%;">
                     <source src="<?php echo base_url('public/img/fixLogo.mp4'); ?>">
@@ -28,16 +28,14 @@
             <!-- Right-side elements: Links and Profile -->
             <ul class="navbar-nav ms-lg-auto align-items-center">
                 <li class="nav-item dropdown me-3">
-                    <a class="nav-link position-relative" href="#" id="commentsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="fas fa-comments fa-2x"></i>
-                        <span class="position-absolute top-0 start-70 translate-middle badge rounded-pill bg-danger">6</span>
-                    </a>
+                    
                 </li>
                 <li class="nav-item dropdown me-3">
-                    <a class="nav-link position-relative" href="#" id="notificationsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <a class="nav-link position-relative" href="<?php echo base_url('/notificaciones') ?>" id="notificationsDropdown" aria-expanded="false">
                         <i class="fas fa-bell fa-2x"></i>
-                        <span class="position-absolute top-0 start-70 translate-middle badge rounded-pill bg-danger">12</span>
+                        <span class="position-absolute top-0 start-70 translate-middle badge rounded-pill bg-danger"></span>
                     </a>
+
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="profileDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
