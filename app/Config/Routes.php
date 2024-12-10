@@ -63,9 +63,3 @@ $routes->get('trabajo/completar/(:num)', 'maquina::completarTrabajo/$1');
 $routes->post('trabajo/completar-servicio/(:num)', 'maquina::completarServicio/$1');
 $routes->get('trabajo/eliminar-completadas', 'Maquina::eliminarPublicacionesCompletadas');
 
-
-
-
-// Rutas para el funcionamiento del chat de ofertas de los tecnicos enviadas al cliente.
-$routes->get('/ofertas', 'Ofertas::index'); //para crear publicaicion///buscar metodo en perfiles
-$routes->get('/crear_oferta', 'Ofertas::crear'); //para crear publicaicion///buscar metodo en perfiles

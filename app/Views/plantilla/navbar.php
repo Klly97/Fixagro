@@ -39,8 +39,10 @@
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="profileDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <img src="https://as1.ftcdn.net/v2/jpg/09/65/01/78/1000_F_965017857_17LYzOToXwVcwZXXpqRrVjDZRQBKxcQw.jpg" class="rounded-circle" height="40" alt="Avatar">
-                        <strong class="ms-2"><?php echo session('nombre') ?></strong>
+                        <img src="<?php echo base_url('public/img/avatar.png'); ?>" class="rounded-circle" height="40" alt="Avatar">
+                        <?php foreach ($persona as $per): ?>
+                        <strong class="ms-2"><?php echo $per['nombre']?></strong>
+                        <?php endforeach ?>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
                         <li><a href="<?php echo base_url('perfil') ?>" class="dropdown-item">Perfil</a></li>

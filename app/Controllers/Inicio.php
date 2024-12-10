@@ -28,6 +28,9 @@ class Inicio extends BaseController
 
                 $maquina = new Maquina();
                 $datos['maquinas'] = $maquina->getMaquinasCliente(session('id'));
+
+                $persona = new Persona();
+                $datos['persona'] = $persona->cosultarPersona(session('id'));
                 return view('inicio_cliente',$datos);
 
             } elseif ($tipo_persona == "TECNICO") {
