@@ -39,6 +39,15 @@ class Persona extends BaseController
 
     }
 
+    public function cosultarPersona($id_persona)
+    {
+        $personaModel = new PersonaModel();
+
+        // Obtener información del usuario actual
+        $data = $personaModel->where('id', $id_persona)->findAll();
+        return $data;
+    }
+
     public function editarPerfil()
     {
         $personaModel = new PersonaModel();
@@ -85,7 +94,7 @@ class Persona extends BaseController
         // Actualizar los datos del usuario en la base de datos
         $personaModel->update($id, $data);
 
-        return redirect()->to('/')->with('success', 'Perfil actualizado correctamente.');
+        return redirect()->route('/');
     }
     public function cambiarContrasena()
     {

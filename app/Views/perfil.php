@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Fixagro</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 
@@ -15,6 +15,7 @@
         crossorigin="anonymous"></script>
     <!-- SweetAlert2 CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <link rel="shortcut icon" href="<?php echo base_url('public/img/logo.png'); ?>" />
 
 
 </head>
@@ -35,7 +36,12 @@
     <form action="/fixagro/actualizar_persona" method="post" class="p-4 border rounded bg-light mt-4"
         style="width: 50%; margin: auto;" id="formActualizarPersona">
         <input type="hidden" name="id" value="<?= $persona['id'] ?>">
-        <h1 style="text-align: center; margin-bottom: 1rem;">Editar Persona</h1>
+        <div class="d-flex justify-content-center">
+            <img src="<?php echo base_url('public/img/avatar.png'); ?>" alt="avatar"
+                class="rounded-circle img-fluid" style="width: 150px;">
+        </div>
+        <h5 class="my-2 d-flex justify-content-center"><?php echo session('nombre') . ' ' . session('apellido') ?></h5>
+        <h1 style="text-align: center; margin-bottom: 1rem; margin:2;">Editar Persona</h1>
 
         <div class="mb-3">
             <label for="nombre" class="form-label">Nombre:</label>
@@ -45,7 +51,7 @@
         <div class="mb-3">
             <label for="apellido" class="form-label">Apellido:</label>
             <input type="text" id="apellido" name="apellido" class="form-control" value="<?= $persona['apellido'] ?>"
-            pattern="^[a-zA-Z0-9]{3,10}$" title="El apellido debe tener minimo 3 caracteres "   required>
+                pattern="^[a-zA-Z0-9]{3,10}$" title="El apellido debe tener minimo 3 caracteres " required>
         </div>
 
         <div class="mb-3">
@@ -130,7 +136,7 @@
         //validacion contraseña
         const form = document.getElementById('formularioEscondido');
 
-        form.addEventListener('submit', function (event) {
+        form.addEventListener('submit', function(event) {
             event.preventDefault(); // Detener el envío predeterminado del formulario
 
             const oldPassword = document.getElementById('old_password').value.trim();
@@ -162,9 +168,9 @@
             const formData = new FormData(form);
 
             fetch('/fixagro/perfil/cambiarContrasena', {
-                method: 'POST',
-                body: formData,
-            })
+                    method: 'POST',
+                    body: formData,
+                })
                 .then(response => response.json()) // Suponiendo que el servidor devuelve JSON
                 .then(data => {
                     if (data.success) {
@@ -216,10 +222,6 @@
                 }
             });
         });
-
-
-
-
     </script>
 </body>
 

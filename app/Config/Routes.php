@@ -62,9 +62,3 @@ $routes->get('trabajo/asignar/(:num)', 'Persona::asignarTrabajo/$1');
 $routes->get('trabajo/completar/(:num)', 'maquina::completarTrabajo/$1');
 $routes->post('trabajo/guardarSolucion/(:num)', 'maquina::guardarSolucion/$1');
 
-
-
-
-// Rutas para el funcionamiento del chat de ofertas de los tecnicos enviadas al cliente.
-$routes->get('/ofertas', 'Ofertas::index'); //para crear publicaicion///buscar metodo en perfiles
-$routes->get('/crear_oferta', 'Ofertas::crear'); //para crear publicaicion///buscar metodo en perfiles

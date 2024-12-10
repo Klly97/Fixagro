@@ -60,9 +60,10 @@
         <div class="row d-flex justify-content-center">
             <!-- Sidebar -->
             <div class="col-md-3 profile-sidebar">
+            <?php foreach ($persona as $per): ?>
                 <div class="profile-info">
                     <img src="https://via.placeholder.com/100" alt="User Profile Picture">
-                    <h5 class="my-2"><?php echo session('nombre') . ' ' . session('apellido') ?></h5>
+                    <h5 class="my-2"><?php echo $per['nombre'] . ' ' . $per['apellido'] ?></h5>
                     <div class="rating mb-1">
                         <i class="fas fa-star text-warning"></i>
                         <i class="fas fa-star text-warning"></i>
@@ -72,10 +73,11 @@
                     </div>
                     <div class="mt-3">
                         <p class="text-muted mb-0">Ubicación</p>
-                        <p class="text-muted mb-4"><?php echo session('municipio') . ', ' . session('departamento') ?></p>
+                        <p class="text-muted mb-4"><?php echo $per['municipio'] . ', ' . $per['departamento']?></p>
                         <a href="perfil_tecnico" class="btn btn-primary btn-sm">Mis Trabajos</a>
                     </div>
                 </div>
+                <?php endforeach ?>
             </div>
 
             <!-- Main Content -->
@@ -88,7 +90,7 @@
                                 <!-- Data -->
                                 <div class="d-flex mb-3">
                                     <a href="">
-                                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTrODtSNaRcRlFgK_vW9k3sgYhtHnyzDhtang&s" class="border rounded-circle me-2"
+                                        <img src="<?php echo base_url('public/img/avatar.png'); ?>" class="border rounded-circle me-2"
                                             alt="Avatar" style="height: 40px" /> </a>
                                     <div>
                                         <a href="" class="text-dark mb-0">
