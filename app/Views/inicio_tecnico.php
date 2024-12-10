@@ -62,35 +62,19 @@
             <div class="col-md-3 profile-sidebar">
                 <div class="profile-info">
                     <img src="https://via.placeholder.com/100" alt="User Profile Picture">
-                    <h5 class="mt-3">John Doe</h5>
-                    <p>Graphic Designer at Self Employed</p>
+                    <h5 class="my-2"><?php echo session('nombre') . ' ' . session('apellido') ?></h5>
+                    <div class="rating mb-1">
+                            <i class="fas fa-star text-warning"></i>
+                            <i class="fas fa-star text-warning"></i>
+                            <i class="fas fa-star text-warning"></i>
+                            <i class="far fa-star text-warning"></i>
+                            <i class="far fa-star text-warning"></i>
+                        </div>
                     <div class="mt-3">
-                        <p>Following <strong>34</strong></p>
-                        <p>Followers <strong>155</strong></p>
-                        <a href="#" class="btn btn-primary btn-sm">View Profile</a>
+                    <p class="text-muted mb-0">Ubicación</p>
+                    <p class="text-muted mb-4"><?php echo session('municipio') . ', ' . session('departamento') ?></p>
+                        <a href="#" class="btn btn-primary btn-sm">Mis Trabajos</a>
                     </div>
-                </div>
-
-                <div class="suggestions">
-                    <h6>Suggestions</h6>
-                    <ul class="list-unstyled">
-                        <li class="d-flex align-items-center mb-3">
-                            <img src="https://via.placeholder.com/40" alt="Profile" class="rounded-circle me-3">
-                            <div>
-                                <p class="mb-0">Jessica William</p>
-                                <small>Graphic Designer</small>
-                            </div>
-                            <button class="btn btn-outline-primary btn-sm ms-auto">+</button>
-                        </li>
-                        <li class="d-flex align-items-center">
-                            <img src="https://via.placeholder.com/40" alt="Profile" class="rounded-circle me-3">
-                            <div>
-                                <p class="mb-0">John Doe</p>
-                                <small>PHP Developer</small>
-                            </div>
-                            <button class="btn btn-outline-primary btn-sm ms-auto">+</button>
-                        </li>
-                    </ul>
                 </div>
             </div>
 

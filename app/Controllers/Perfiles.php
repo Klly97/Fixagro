@@ -12,10 +12,7 @@ class Perfiles extends BaseController
         return view('perfil');
     }
 
-    public function servicio_mantenimiento(){
-        return view('servicio_mantenimiento');
-    }
-
+   
 }
 
 ?>
