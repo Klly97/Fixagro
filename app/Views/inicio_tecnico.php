@@ -73,8 +73,7 @@
                     <div class="mt-3">
                         <p class="text-muted mb-0">Ubicación</p>
                         <p class="text-muted mb-4"><?php echo session('municipio') . ', ' . session('departamento') ?></p>
-                        <a href="#" class="btn btn-primary btn-sm">Mis Trabajos</a>
-                        <a href="<?php echo base_url("/ofertas") ?>" class="btn btn-primary btn-sm">Mis Trabajos</a>
+                        <a href="perfil_tecnico" class="btn btn-primary btn-sm">Mis Trabajos</a>
                     </div>
                 </div>
             </div>
@@ -167,17 +166,10 @@
 
                                 <!-- Buttons -->
                                 <div class="d-flex justify-content-between text-center border-top border-bottom mb-4">
-                                    <button type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-link btn-lg" data-mdb-ripple-color="dark">
-                                        <i class="fas fa-share me-2"></i>Enviar Oferta
-                                    </button>
+                                    <a href="<?= base_url('trabajo/asignar/' . $publicacion['id_publicacion']); ?>" class="btn btn-primary">
+                                        Asignar Trabajo
+                                    </a>
 
-                                    <button type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-link btn-lg enviarOferta" data-mdb-ripple-color="dark">
-                                        <i class="fas fa-thumbs-up me-2"></i>Enviar Mensaje
-                                    </button>
-                                    
-                                    <button type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-link btn-lg" data-mdb-ripple-color="dark">
-                                        <i class="fas fa-comment-alt me-2"></i>Guardar
-                                    </button>
 
                                 </div>
                             </div>

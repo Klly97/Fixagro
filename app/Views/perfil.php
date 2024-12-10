@@ -39,37 +39,37 @@
 
         <div class="mb-3">
             <label for="nombre" class="form-label">Nombre:</label>
-            <input type="text" id="nombre" name="nombre" class="form-control" value="<?= $persona['nombre'] ?>"
-                required>
+            <input type="text" id="nombre" name="nombre" class="form-control" value="<?= $persona['nombre'] ?>" pattern="^[a-zA-Z0-9]{3,10}$" title="El nombre debe tener minimo 3 caracteres " required>
         </div>
 
         <div class="mb-3">
             <label for="apellido" class="form-label">Apellido:</label>
             <input type="text" id="apellido" name="apellido" class="form-control" value="<?= $persona['apellido'] ?>"
-                required>
+            pattern="^[a-zA-Z0-9]{3,10}$" title="El apellido debe tener minimo 3 caracteres "   required>
         </div>
 
         <div class="mb-3">
             <label for="direccion" class="form-label">Dirección:</label>
-            <input type="text" id="direccion" name="direccion" class="form-control"
-                value="<?= $persona['direccion'] ?>">
+            <input type="text" id="direccion" name="direccion" class="form-control" value="<?= $persona['direccion'] ?>"
+                pattern="^.{7,15}$" title="La dirección debe tener entre 7 y 15 caracteres" required>
         </div>
 
         <div class="mb-3">
             <label for="municipio" class="form-label">Municipio:</label>
-            <input type="text" id="municipio" name="municipio" class="form-control"
-                value="<?= $persona['municipio'] ?>">
+            <input type="text" id="municipio" name="municipio" class="form-control" value="<?= $persona['municipio'] ?>"
+                required>
         </div>
 
         <div class="mb-3">
             <label for="departamento" class="form-label">Departamento:</label>
             <input type="text" id="departamento" name="departamento" class="form-control"
-                value="<?= $persona['departamento'] ?>">
+                value="<?= $persona['departamento'] ?>" required>
         </div>
 
         <div class="mb-3">
             <label for="telefono" class="form-label">Teléfono:</label>
-            <input type="text" id="telefono" name="telefono" class="form-control" value="<?= $persona['telefono'] ?>">
+            <input type="text" id="telefono" name="telefono" class="form-control" value="<?= $persona['telefono'] ?>"
+                pattern="^\d{7,15}$" title="El teléfono debe tener entre 7 y 15 dígitos" required>
         </div>
 
         <button type="submit" class="btn btn-primary ">Guardar Cambios</button>
@@ -107,9 +107,7 @@
 
 
     <script>
-
-
-
+        const newPasswordInput = document.getElementById('new_password');
         const mostrarFormulario = document.getElementById('mostrarFormulario');
         const formulario = document.getElementById('formularioEscondido');
         const cancelarCambio = document.getElementById('cancelarCambio');
@@ -126,44 +124,79 @@
             cancelarCambio.style.display = 'none';
         })
 
-        document.getElementById('formActualizarPersona').addEventListener('submit', function (e) {
-            const inputs = document.querySelectorAll('#formActualizarPersona input');
-            let formValid = true;
-
-            inputs.forEach(input => {
-                if (input.value.trim() === '') {
-                    alert(`El campo "${input.previousElementSibling.textContent}" no puede estar vacío.`);
-                    formValid = false;
-                    input.focus();
-                    e.preventDefault();
-                    return false; // Detener la iteración
-                }
-            });
 
 
 
-            return formValid;
+        //validacion contraseña
+        const form = document.getElementById('formularioEscondido');
+
+        form.addEventListener('submit', function (event) {
+            event.preventDefault(); // Detener el envío predeterminado del formulario
+
+            const oldPassword = document.getElementById('old_password').value.trim();
+            const newPassword = document.getElementById('new_password').value.trim();
+
+            // Validar si los campos están vacíos
+            if (!oldPassword || !newPassword) {
+                Swal.fire({
+                    title: 'Error',
+                    text: 'Por favor, completa todos los campos.',
+                    icon: 'warning',
+                    confirmButtonText: 'Aceptar'
+                });
+                return;
+            }
+
+            // Validar si la nueva contraseña tiene entre 4 y 8 caracteres
+            if (newPassword.length < 4 || newPassword.length > 8) {
+                Swal.fire({
+                    title: 'Error',
+                    text: 'La nueva contraseña debe tener entre 4 y 8 caracteres.',
+                    icon: 'error',
+                    confirmButtonText: 'Reintentar'
+                });
+                return;
+            }
+
+            // Si los campos no están vacíos, enviar al servidor
+            const formData = new FormData(form);
+
+            fetch('/fixagro/perfil/cambiarContrasena', {
+                method: 'POST',
+                body: formData,
+            })
+                .then(response => response.json()) // Suponiendo que el servidor devuelve JSON
+                .then(data => {
+                    if (data.success) {
+                        Swal.fire({
+                            title: '¡Éxito!',
+                            text: 'Contraseña actualizada correctamente.',
+                            icon: 'success',
+                            confirmButtonText: 'Aceptar'
+                        }).then(() => {
+                            window.location.href = '/fixagro/login'; // Redirigir al login después del éxito
+                        });
+                    } else {
+                        Swal.fire({
+                            title: 'Error',
+                            text: data.message || 'La contraseña actual es incorrecta.',
+                            icon: 'error',
+                            confirmButtonText: 'Reintentar'
+                        });
+                    }
+                })
+                .catch(error => {
+                    Swal.fire({
+                        title: 'Error del servidor',
+                        text: 'Hubo un problema al procesar tu solicitud.',
+                        icon: 'error',
+                        confirmButtonText: 'Reintentar'
+                    });
+                    console.error('Error:', error);
+                });
         });
-        document.getElementById('formularioEscondido').addEventListener('submit', function (e) {
-            const inputs = document.querySelectorAll('#formularioEscondido input');
-            let formValid = true;
 
-            inputs.forEach(input => {
-                if (input.value.trim() === '') {
-                    alert(`El campo "${input.previousElementSibling.textContent}" no puede estar vacío.`);
-                    formValid = false;
-                    input.focus();
-                    e.preventDefault();
-                    return false; // Detener la iteración
-                }
-            });
-
-
-
-            return formValid;
-        });
-
-
+        //validacion boton eliminar
         const btnEliminar = document.getElementById('btnEliminar');
         const formularioEliminar = document.getElementById('formularioEliminar');
 
@@ -183,6 +216,10 @@
                 }
             });
         });
+
+
+
+
     </script>
 </body>
 

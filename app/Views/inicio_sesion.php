@@ -77,6 +77,9 @@ if (isset($usuario)) {
 
 
     <script>
+
+
+
         $(document).ready(iniciar);
 
         function iniciar() {
