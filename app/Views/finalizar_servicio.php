@@ -18,16 +18,21 @@
         </div>
 
         <div class="informacion m-3">
-            <h2 class="fs-5 pt-3">Problema:</h2>
-            <input type="text" class="form-control rounded mt-3 ms-2" disabled style="width: 90%; height:30px;" value="<?= $publicacion['descripcion']; ?>" aria-label="Search">
+            
+            <form action="<?= base_url('trabajo/completar-servicio/' . $trabajo['id_trabajo']); ?>" method="POST">
+                <!-- Problema -->
+                <h2 class="fs-5 pt-3">Problema:</h2>
+                <input type="text" class="form-control rounded mt-3 ms-2" disabled style="width: 90%; height:30px;" value="<?= $publicacion['descripcion']; ?>" aria-label="Search">
 
-            <form action="<?= base_url('trabajo/guardarSolucion/' . $trabajo['id_trabajo']); ?>" method="post">
+                <!-- Problema Solucionado -->
                 <h2 class="fs-5 pt-3">Problema solucionado:</h2>
-                <input type="text" name="problema_solucionado" class="form-control rounded mt-3 ms-2" style="width: 90%; height:40px;" placeholder="Ingrese el Problema solucionado" required>
+                <input type="text" class="form-control rounded mt-3 ms-2" name="problema_solucionado" style="width: 90%; height:40px;" placeholder="Ingrese el Problema solucionado" required>
 
+                <!-- Descripción -->
                 <h2 class="fs-5 pt-3">Descripcion:</h2>
-                <input type="text" name="descripcion" class="form-control rounded mt-3 ms-2" style="width: 90%; height:50px;" placeholder="Ingrese la Descripción del trabajo" required>
+                <input type="text" class="form-control rounded mt-3 ms-2" name="descripcion" style="width: 90%; height:50px;" placeholder="Ingrese la descripción del servicio" required>
 
+                <!-- Botón para finalizar servicio -->
                 <button type="submit" class="btn btn-warning ms-1 mt-3 mb-3" style="width: 30%; height: 40px; font-size: 20px;">Finalizar Servicio</button>
             </form>
         </div>

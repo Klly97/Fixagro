@@ -48,13 +48,16 @@
 
                                                 <!-- Botón de acción según estado -->
                                                 <div class="d-grid gap-2">
-                                                    <?php if (!$trabajo['puede_completar']): ?>
-                                                        <button class="btn btn-secondary" disabled>Completar Trabajo</button>
-                                                    <?php else: ?>
-                                                        <a href="<?= base_url('trabajo/completar/' . $trabajo['id_trabajo']); ?>" class="btn btn-success">Completar Trabajo</a>
-                                                    <?php endif; ?>
+                                                    <?php if ($trabajo['estado'] !== 'completado'): ?>
+                                                        <!-- Mostrar botones solo si el estado no es completado -->
+                                                        <?php if (!$trabajo['puede_completar']): ?>
+                                                            <button class="btn btn-secondary" disabled>Completar Trabajo</button>
+                                                        <?php else: ?>
+                                                            <a href="<?= base_url('trabajo/completar/' . $trabajo['id_trabajo']); ?>" class="btn btn-success">Completar Trabajo</a>
+                                                        <?php endif; ?>
 
-                                                    <a href="<?= base_url('trabajo/cancelar/' . $trabajo['id_trabajo']); ?>" class="btn btn-danger">Cancelar Trabajo</a>
+                                                        <a href="<?= base_url('trabajo/cancelar/' . $trabajo['id_trabajo']); ?>" class="btn btn-danger">Cancelar Trabajo</a>
+                                                    <?php endif; ?>
                                                 </div>
                                             </div>
                                         </div>
@@ -66,7 +69,6 @@
                         </div>
                     </div>
 
-                    <a href="<?= base_url('trabajo/historial'); ?>" class="btn btn-success me-2 mt-2">Historial</a>
                 </div>
             </div>
         </div>

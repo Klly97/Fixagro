@@ -5,6 +5,8 @@ namespace App\Controllers;
 use App\Models\MaquinaModel;
 use App\Models\PublicacionModel;
 use App\Models\TrabajosModel;
+use App\Models\InformeModel;
+use App\Models\PersonaModel;
 class Maquina extends BaseController
 {
 
@@ -132,23 +134,75 @@ class Maquina extends BaseController
 }
 
 
-    public function guardarSolucion($id_trabajo)
+public function completarServicio($id_trabajo)
     {
+        // Instanciamos los modelos
         $trabajoModel = new TrabajosModel();
+        $maquinaModel = new MaquinaModel();
+        $publicacionModel = new PublicacionModel();
+        $informeModel = new InformeModel();
+        $personaModel = new PersonaModel();  // Instanciamos el modelo Persona
 
-        // Obtener la información del formulario
+        // Obtener el trabajo con el id_trabajo
+        $trabajo = $trabajoModel->find($id_trabajo);
+
+        if (!$trabajo) {
+            return redirect()->back()->with('error', 'Trabajo no encontrado.');
+        }
+
+        // Obtener la máquina asociada al trabajo
+        $maquina = $maquinaModel->find($trabajo['id_maquina']);
+        if (!$maquina) {
+            return redirect()->back()->with('error', 'Máquina no encontrada.');
+        }
+
+        // Obtener la publicación asociada a la máquina
+        $publicacion = $publicacionModel->where('id_maquina', $trabajo['id_maquina'])->first();
+        if (!$publicacion) {
+            return redirect()->back()->with('error', 'Publicación no encontrada.');
+        }
+
+        // Obtener el nombre del dueño de la máquina desde la tabla personas
+        $persona = $personaModel->find($publicacion['id_usuario']);
+        if (!$persona) {
+            return redirect()->back()->with('error', 'Persona no encontrada.');
+        }
+
+        // Obtener los datos del formulario (problema solucionado y descripción)
         $problemaSolucionado = $this->request->getPost('problema_solucionado');
         $descripcion = $this->request->getPost('descripcion');
 
-        // Actualizar el estado del trabajo
-        $trabajoModel->update($id_trabajo, [
-            'estado' => 'completado',
-            'problema_solucionado' => $problemaSolucionado,
-            'descripcion' => $descripcion,
-        ]);
+        // Validar los datos
+        if (!$problemaSolucionado || !$descripcion) {
+            return redirect()->back()->with('error', 'Debe ingresar todos los campos.');
+        }
 
-        return redirect()->to('/trabajos')->with('success', 'Trabajo completado con éxito.');
+        // Crear el informe para el trabajo completado
+        $informeData = [
+            'id_publicacion' => $publicacion['id_publicacion'],  // ID de la publicación
+            'id_usuario_tec' => session()->get('id'),  // ID del técnico desde la sesión
+            'tipo_maquina' => $maquina['tipo_maquina'],  // Tipo de máquina
+            'modelo' => $maquina['modelo'],  // Modelo de la máquina
+            'marca' => $maquina['marca'],  // Marca de la máquina
+            'descripcion_publicacion' => $publicacion['descripcion'],  // Descripción original de la publicación
+            'problema_solucionado' => $problemaSolucionado,  // El problema solucionado por el técnico
+            'descripcion_trabajo' => $descripcion,  // Descripción del trabajo realizado
+            'nombre_dueño' => $persona['nombre'],  // Nombre del dueño de la máquina (de la tabla personas)
+            'fecha_finalizacion' => date('Y-m-d H:i:s')  // Fecha de finalización del trabajo
+        ];
+
+        // Insertar el informe en la tabla informe_tec
+        if (!$informeModel->insert($informeData)) {
+            return redirect()->back()->with('error', 'Error al generar el informe.');
+        }
+
+        // Actualizar el estado del trabajo a "completado"
+        $trabajoModel->update($id_trabajo, ['estado' => 'completado']);
+
+        // Redirigir a la vista del técnico con un mensaje de éxito
+        return redirect()->to('/perfil_tecnico')->with('success', 'Trabajo completado y reporte generado.');
     }
+
 
     public function actualizar()
 {
@@ -226,5 +280,27 @@ public function eliminar($id_maquina)
 
     return redirect()->to(base_url('/inicio'))->with('mensaje', 'Máquina y publicaciones eliminadas con éxito.');
 }
+
+public function eliminarPublicacionesCompletadas()
+{
+    // Instanciamos los modelos
+    $trabajoModel = new TrabajosModel();
+    $publicacionModel = new PublicacionModel();
+
+    // Obtener todos los trabajos con estado "completado"
+    $trabajosCompletados = $trabajoModel->where('estado', 'completado')->findAll();
+
+    // Recorre los trabajos completados
+    foreach ($trabajosCompletados as $trabajo) {
+        // Eliminar la publicación relacionada
+        $publicacionModel->delete($trabajo['id_publicacion']);
+    }
+
+    // Redirigir a la lista de trabajos
+    return redirect()->to('/trabajo/mis-trabajos')->with('mensaje', 'Publicaciones completadas eliminadas correctamente.');
+}
+
+
+
 
 }
