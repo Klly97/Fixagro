@@ -46,3 +46,5 @@ $routes->post('/crear_maquina', 'Maquina::crear');//para agregar máquinas
 // Rutas para gestión de publicacion
 $routes->post('/crear_publicacion', 'Publicacion::crear'); //para crear publicaicion///buscar metodo en perfiles
 $routes->get('/historial', 'Publicacion::historial');// Historial de las máquinas
+$routes->get('/finalizar_servicio', 'Maquina::finalizar_servicio');
+

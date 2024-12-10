@@ -3,6 +3,9 @@
 namespace App\Controllers;
 
 use App\Models\PersonaModel;
+use App\Models\PublicacionModel;
+use App\Models\MaquinaModel;
+
 
 class Persona extends BaseController
 {
@@ -28,13 +31,13 @@ class Persona extends BaseController
             'departamento' => $departamento,
             'email' => $correo,
             'nombre_usuario' => $nombre,
-            'contrasena' => $contrasena, 
+            'contrasena' => $contrasena,
             'estado' => "ACTIVO",
             'tipo_persona' => $tipo_persona,
             'avatar' => 'xaSASasasas'
         ]);
 
-       echo "DATOS GUARDADOS";
+        echo "DATOS GUARDADOS";
     }
     public function editarPerfil()
     {
@@ -114,12 +117,86 @@ class Persona extends BaseController
         // Obtener el ID de la persona desde el formulario
         $usuarioId = session()->get('id');
         $personaModelo = new PersonaModel();
-        
 
-        if($personaModelo->delete($usuarioId)){
+
+        if ($personaModelo->delete($usuarioId)) {
             return redirect()->to('/login')->with('mensaje', 'exito en eliminar');
-        }else{
+        } else {
             return redirect()->back()->with('error', 'Error al eliminar la persona');
         }
     }
+
+    public function buscarPersona()
+    {
+        // Capturar el término de búsqueda desde el formulario
+        $termino = $this->request->getPost('busqueda');
+
+        // Instanciar el modelo
+        $modelo = new PersonaModel();
+
+        // Dividir el término de búsqueda en palabras
+        $palabras = explode(' ', trim($termino));
+
+        // Filtrar solo los registros que sean de tipo TECNICO
+        $query = $modelo;
+
+        if (count($palabras) > 1) {
+            // Si hay más de una palabra, buscaremos ambas en nombre y apellido
+            $query->groupStart()
+                ->like('nombre', $palabras[0])
+                ->like('apellido', $palabras[1])
+                ->groupEnd();
+        } else {
+            // Si solo hay una palabra, buscaremos en nombre o apellido
+            $query->groupStart()
+                ->like('nombre', $palabras[0])
+                ->orLike('apellido', $palabras[0])
+                ->groupEnd();
+        }
+
+        // Ejecutar la consulta
+        $resultados = $query->findAll();
+
+        // Cargar la vista con los resultados
+        return view('persona_resultado', ['resultados' => $resultados]);
+    }
+
+    public function detalle($id)
+{
+    $personaModel = new PersonaModel();
+    $publicacionModel = new PublicacionModel();
+    $maquinaModel = new MaquinaModel(); // Cargar el modelo de máquinas
+    
+    // Obtener la información de la persona por su ID
+    $persona = $personaModel->find($id);
+
+    // Si no se encuentra la persona, mostrar error
+    if (!$persona) {
+        throw new \CodeIgniter\Exceptions\PageNotFoundException('Persona no encontrada');
+    }
+
+    // Obtener las publicaciones del usuario
+    $publicaciones = $publicacionModel->where('id_usuario', $id)->findAll();
+
+    // Obtener la máquina asociada a cada publicación
+    foreach ($publicaciones as &$publicacion) {
+        // Obtener la máquina relacionada con la publicación
+        $maquina = $maquinaModel->find($publicacion['id_maquina']);
+        
+        // Agregar la imagen de la máquina a los datos de la publicación
+        if ($maquina) {
+            $publicacion['maquina_img'] = $maquina['img'];
+        } else {
+            $publicacion['maquina_img'] = null; // En caso de que no haya una máquina asociada
+        }
+    }
+
+    // Verificar el tipo de persona y cargar la vista correspondiente
+    if ($persona['tipo_persona'] === 'TECNICO') {
+        return view('tecnico_detalle', ['persona' => $persona, 'publicaciones' => $publicaciones]);
+    } elseif ($persona['tipo_persona'] === 'CLIENTE') {
+        return view('usuario_detalle', ['persona' => $persona, 'publicaciones' => $publicaciones]);
+    }
+}
+
 }

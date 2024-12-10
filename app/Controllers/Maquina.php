@@ -90,4 +90,7 @@ class Maquina extends BaseController
         $consulta = $maquinaModel->where(["id_usuario" => $id_usuario, "id_maquina" => $id_maquina])->findAll();
         return $consulta;
     }
+    public function finalizar_servicio(){
+        return view('finalizar_servicio');
+    }
 }
