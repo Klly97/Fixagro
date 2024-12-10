@@ -32,7 +32,7 @@
 
     <!-- Formulario de Actualización de Persona -->
 
-    <form action="/fixagro/actualizar_persona" method="post" class="p-4 border rounded bg-light "
+    <form action="/fixagro/actualizar_persona" method="post" class="p-4 border rounded bg-light mt-4"
         style="width: 50%; margin: auto;" id="formActualizarPersona">
         <input type="hidden" name="id" value="<?= $persona['id'] ?>">
         <h1 style="text-align: center; margin-bottom: 1rem;">Editar Persona</h1>
