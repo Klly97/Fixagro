@@ -60,5 +60,6 @@ $routes->get('perfil_tecnico', 'Persona::perfilTecnico');
 $routes->get('trabajo/asignar/(:num)', 'Persona::asignarTrabajo/$1');
 
 $routes->get('trabajo/completar/(:num)', 'maquina::completarTrabajo/$1');
-$routes->post('trabajo/guardarSolucion/(:num)', 'maquina::guardarSolucion/$1');
+$routes->post('trabajo/completar-servicio/(:num)', 'maquina::completarServicio/$1');
+$routes->get('trabajo/eliminar-completadas', 'Maquina::eliminarPublicacionesCompletadas');
 
