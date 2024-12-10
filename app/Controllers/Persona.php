@@ -11,14 +11,14 @@ class Persona extends BaseController
 {
     public function crear()
     {
-        $nombre =  $this->request->getPostGet('nombre');
+        $nombre = $this->request->getPostGet('nombre');
         $apellido = $this->request->getPostGet('apellido');
         $telefono = $this->request->getPostGet('telefono');
         $direccion = $this->request->getPostGet('direccion');
         $municipio = $this->request->getPostGet('municipio');
         $departamento = $this->request->getPostGet('departamento');
         $correo = $this->request->getPostGet('correo');
-        $contrasena =  md5($this->request->getPostGet('contrasena'));
+        $contrasena = md5($this->request->getPostGet('contrasena'));
         $tipo_persona = $this->request->getPostGet('tipo_persona');
         $usuariosModel = new PersonaModel();
 
@@ -89,29 +89,24 @@ class Persona extends BaseController
     }
     public function cambiarContrasena()
     {
-        $usuarioId = session()->get('id');
         $personaModel = new PersonaModel();
+        $usuarioId = session()->get('id');
         $usuario = $personaModel->find($usuarioId);
-        // Obtener los datos del formulario
+
         $oldPassword = $this->request->getPost('old_password');
         $newPassword = $this->request->getPost('new_password');
 
-
-
-
-        // Suponiendo que tienes el ID del usuario en sesión
-        $usuario = $personaModel->find(session()->get('id'));
-
         if (md5($oldPassword) === $usuario['contrasena']) {
-            // Si la contraseña actual es correcta, actualizar la nueva contraseña
-            $newHashedPassword = md5($newPassword); // O usa password_hash() para mayor seguridad
+            $newHashedPassword = md5($newPassword);
             $personaModel->update($usuario['id'], ['contrasena' => $newHashedPassword]);
             session()->destroy();
-            return redirect()->to('/login')->with('mensaje', 'Contraseña actualizada correctamente');
+
+            return $this->response->setJSON(['success' => true]);
         } else {
-            return redirect()->to('/perfil')->with('error', 'Contraseña actual incorrecta');
+            return $this->response->setJSON(['success' => false, 'message' => 'Contraseña actual incorrecta']);
         }
     }
+
 
     public function eliminarPersona()
     {
@@ -164,41 +159,41 @@ class Persona extends BaseController
     }
 
     public function detalle($id)
-{
-    $personaModel = new PersonaModel();
-    $publicacionModel = new PublicacionModel();
-    $maquinaModel = new MaquinaModel(); // Cargar el modelo de máquinas
-    
-    // Obtener la información de la persona por su ID
-    $persona = $personaModel->find($id);
+    {
+        $personaModel = new PersonaModel();
+        $publicacionModel = new PublicacionModel();
+        $maquinaModel = new MaquinaModel(); // Cargar el modelo de máquinas
 
-    // Si no se encuentra la persona, mostrar error
-    if (!$persona) {
-        throw new \CodeIgniter\Exceptions\PageNotFoundException('Persona no encontrada');
-    }
+        // Obtener la información de la persona por su ID
+        $persona = $personaModel->find($id);
 
-    // Obtener las publicaciones del usuario
-    $publicaciones = $publicacionModel->where('id_usuario', $id)->findAll();
+        // Si no se encuentra la persona, mostrar error
+        if (!$persona) {
+            throw new \CodeIgniter\Exceptions\PageNotFoundException('Persona no encontrada');
+        }
 
-    // Obtener la máquina asociada a cada publicación
-    foreach ($publicaciones as &$publicacion) {
-        // Obtener la máquina relacionada con la publicación
-        $maquina = $maquinaModel->find($publicacion['id_maquina']);
-        
-        // Agregar la imagen de la máquina a los datos de la publicación
-        if ($maquina) {
-            $publicacion['maquina_img'] = $maquina['img'];
-        } else {
-            $publicacion['maquina_img'] = null; // En caso de que no haya una máquina asociada
+        // Obtener las publicaciones del usuario
+        $publicaciones = $publicacionModel->where('id_usuario', $id)->findAll();
+
+        // Obtener la máquina asociada a cada publicación
+        foreach ($publicaciones as &$publicacion) {
+            // Obtener la máquina relacionada con la publicación
+            $maquina = $maquinaModel->find($publicacion['id_maquina']);
+
+            // Agregar la imagen de la máquina a los datos de la publicación
+            if ($maquina) {
+                $publicacion['maquina_img'] = $maquina['img'];
+            } else {
+                $publicacion['maquina_img'] = null; // En caso de que no haya una máquina asociada
+            }
+        }
+
+        // Verificar el tipo de persona y cargar la vista correspondiente
+        if ($persona['tipo_persona'] === 'TECNICO') {
+            return view('tecnico_detalle', ['persona' => $persona, 'publicaciones' => $publicaciones]);
+        } elseif ($persona['tipo_persona'] === 'CLIENTE') {
+            return view('usuario_detalle', ['persona' => $persona, 'publicaciones' => $publicaciones]);
         }
     }
-
-    // Verificar el tipo de persona y cargar la vista correspondiente
-    if ($persona['tipo_persona'] === 'TECNICO') {
-        return view('tecnico_detalle', ['persona' => $persona, 'publicaciones' => $publicaciones]);
-    } elseif ($persona['tipo_persona'] === 'CLIENTE') {
-        return view('usuario_detalle', ['persona' => $persona, 'publicaciones' => $publicaciones]);
-    }
-}
 
 }
